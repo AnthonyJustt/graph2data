@@ -471,7 +471,7 @@ struct customButton: ButtonStyle {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-           .preferredColorScheme(.dark)
-            .environment(\.locale, .init(identifier: "ru"))
+//            .preferredColorScheme(.dark)
+//            .environment(\.locale, .init(identifier: "ru"))
     }
 }

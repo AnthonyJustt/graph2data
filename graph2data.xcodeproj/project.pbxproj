@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		494C4AA226FFD36D0023D1B3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494C4AA126FFD36D0023D1B3 /* HealthKit.framework */; };
+		49555A93271475CE00A78541 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8D271475CE00A78541 /* DisclosureView.swift */; };
+		49555A94271475CE00A78541 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8F271475CE00A78541 /* ContentView.swift */; };
+		49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A90271475CE00A78541 /* graph2dataApp.swift */; };
+		49555A96271475CE00A78541 /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A91271475CE00A78541 /* HealthView.swift */; };
+		49555A98271475F900A78541 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49555A97271475F900A78541 /* Assets.xcassets */; };
+		49555A9B2714760600A78541 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49555A9A2714760600A78541 /* Preview Assets.xcassets */; };
+		49555A9D2714777800A78541 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A9C2714777800A78541 /* HealthStore.swift */; };
+		4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22127216C9E00AED7E8 /* Localizable.strings */; };
+		4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22427216CAA00AED7E8 /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		494273C526F64695004535DF /* graph2data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graph2data.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		494C4AA126FFD36D0023D1B3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		49555A8D271475CE00A78541 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = graph2data/DisclosureView.swift; sourceTree = SOURCE_ROOT; };
+		49555A8E271475CE00A78541 /* graph2data.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = graph2data.entitlements; path = graph2data/graph2data.entitlements; sourceTree = SOURCE_ROOT; };
+		49555A8F271475CE00A78541 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = graph2data/ContentView.swift; sourceTree = SOURCE_ROOT; };
+		49555A90271475CE00A78541 /* graph2dataApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = graph2dataApp.swift; path = graph2data/graph2dataApp.swift; sourceTree = SOURCE_ROOT; };
+		49555A91271475CE00A78541 /* HealthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthView.swift; path = graph2data/HealthView.swift; sourceTree = SOURCE_ROOT; };
+		49555A97271475F900A78541 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = graph2data/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		49555A9A2714760600A78541 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		49555A9C2714777800A78541 /* HealthStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthStore.swift; path = graph2data/HealthStore.swift; sourceTree = SOURCE_ROOT; };
+		4962B22227216C9E00AED7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		4962B22527216CAA00AED7E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		494273C226F64695004535DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				494C4AA226FFD36D0023D1B3 /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		494273BC26F64695004535DF = {
+			isa = PBXGroup;
+			children = (
+				4962B21E27216C8400AED7E8 /* Local */,
+				494273C726F64695004535DF /* graph2data */,
+				494273C626F64695004535DF /* Products */,
+				494C4AA026FFD36D0023D1B3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		494273C626F64695004535DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				494273C526F64695004535DF /* graph2data.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		494273C726F64695004535DF /* graph2data */ = {
+			isa = PBXGroup;
+			children = (
+				49555A8F271475CE00A78541 /* ContentView.swift */,
+				49555A8D271475CE00A78541 /* DisclosureView.swift */,
+				49555A8E271475CE00A78541 /* graph2data.entitlements */,
+				49555A90271475CE00A78541 /* graph2dataApp.swift */,
+				49555A9C2714777800A78541 /* HealthStore.swift */,
+				49555A992714760600A78541 /* Preview Content */,
+				49555A91271475CE00A78541 /* HealthView.swift */,
+				49555A97271475F900A78541 /* Assets.xcassets */,
+			);
+			path = graph2data;
+			sourceTree = "<group>";
+		};
+		494C4AA026FFD36D0023D1B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				494C4AA126FFD36D0023D1B3 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		49555A992714760600A78541 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				49555A9A2714760600A78541 /* Preview Assets.xcassets */,
+			);
+			name = "Preview Content";
+			path = "graph2data/Preview Content";
+			sourceTree = SOURCE_ROOT;
+		};
+		4962B21E27216C8400AED7E8 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				4962B22027216C8D00AED7E8 /* ru */,
+				4962B21F27216C8800AED7E8 /* en */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		4962B21F27216C8800AED7E8 /* en */ = {
+			isa = PBXGroup;
+			children = (
+				4962B22127216C9E00AED7E8 /* Localizable.strings */,
+			);
+			path = en;
+			sourceTree = "<group>";
+		};
+		4962B22027216C8D00AED7E8 /* ru */ = {
+			isa = PBXGroup;
+			children = (
+				4962B22427216CAA00AED7E8 /* Localizable.strings */,
+			);
+			path = ru;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		494273C426F64695004535DF /* graph2data */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 494273D326F64697004535DF /* Build configuration list for PBXNativeTarget "graph2data" */;
+			buildPhases = (
+				494273C126F64695004535DF /* Sources */,
+				494273C226F64695004535DF /* Frameworks */,
+				494273C326F64695004535DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = graph2data;
+			productName = pixels;
+			productReference = 494273C526F64695004535DF /* graph2data.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		494273BD26F64695004535DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					494273C426F64695004535DF = {
+						CreatedOnToolsVersion = 13.0;
+					};
+				};
+			};
+			buildConfigurationList = 494273C026F64695004535DF /* Build configuration list for PBXProject "graph2data" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ru,
+			);
+			mainGroup = 494273BC26F64695004535DF;
+			productRefGroup = 494273C626F64695004535DF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				494273C426F64695004535DF /* graph2data */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		494273C326F64695004535DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49555A9B2714760600A78541 /* Preview Assets.xcassets in Resources */,
+				4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */,
+				4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */,
+				49555A98271475F900A78541 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		494273C126F64695004535DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49555A9D2714777800A78541 /* HealthStore.swift in Sources */,
+				49555A93271475CE00A78541 /* DisclosureView.swift in Sources */,
+				49555A94271475CE00A78541 /* ContentView.swift in Sources */,
+				49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */,
+				49555A96271475CE00A78541 /* HealthView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4962B22127216C9E00AED7E8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4962B22227216C9E00AED7E8 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4962B22427216CAA00AED7E8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4962B22527216CAA00AED7E8 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		494273D126F64697004535DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		494273D226F64697004535DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		494273D426F64697004535DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = graph2data/pixels.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"graph2data/Preview Content\"";
+				DEVELOPMENT_TEAM = A3KBNB28AF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = graph2data/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = graph2data;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app would like to write simulated heart data to HealthKit WRITE";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app would like to read simulated heart rate data from HealthKit READ";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AK.graph2data;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		494273D526F64697004535DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = graph2data/pixels.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"graph2data/Preview Content\"";
+				DEVELOPMENT_TEAM = A3KBNB28AF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = graph2data/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = graph2data;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app would like to write simulated heart data to HealthKit WRITE";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app would like to read simulated heart rate data from HealthKit READ";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AK.graph2data;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		494273C026F64695004535DF /* Build configuration list for PBXProject "graph2data" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				494273D126F64697004535DF /* Debug */,
+				494273D226F64697004535DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		494273D326F64697004535DF /* Build configuration list for PBXNativeTarget "graph2data" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				494273D426F64697004535DF /* Debug */,
+				494273D526F64697004535DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 494273BD26F64695004535DF /* Project object */;
+}

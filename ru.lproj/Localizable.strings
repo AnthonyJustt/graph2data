@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings - RU
+  habr
+
+  Created by Anton Krivonozhenkov on 05.05.2021.
+  
+*/
+
+"MainView.Title" = "Heart Rate";
+"MainView.ExportToAppleHealth" = "Экспортировать в Apple Health";

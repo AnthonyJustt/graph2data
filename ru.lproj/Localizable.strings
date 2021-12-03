@@ -6,5 +6,7 @@
   
 */
 
-"MainView.Title" = "Heart Rate";
+"HeartRate.Title" = "Heart Rate";
 "MainView.ExportToAppleHealth" = "Экспортировать в Apple Health";
+"BloodOxygen.Title" = "Blood Oxygen";
+"BloodOxygen.Tab" = "SpO₂";

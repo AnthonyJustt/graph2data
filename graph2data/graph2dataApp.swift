@@ -11,8 +11,8 @@ import SwiftUI
 struct pixelsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-         //   HealthView()
+            MainView()
+            // HealthView()
         }
     }
 }

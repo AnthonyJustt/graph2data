@@ -9,8 +9,10 @@ import SwiftUI
 
 struct heartRateItem: Identifiable {
     var id = UUID()
+    var x: CGFloat
+    var y: CGFloat
     var date: String
-    var hr: String
+    var value: String
 }
 
 struct DisclosureView: View {
@@ -24,9 +26,13 @@ struct DisclosureView: View {
                 VStack(alignment: .leading) {
                     ForEach(hubArray) { item in
                         HStack {
+                            Text("\(Int(item.x))")
+                            Divider()
+                            Text("\(Int(item.y))")
+                            Divider()
                             Text(item.date)
-                            Spacer()
-                            Text(item.hr)
+                            Divider()
+                            Text(item.value)
                         }
                     }
                 }
@@ -38,7 +44,7 @@ struct DisclosureView: View {
 
 struct DisclosureView_Previews: PreviewProvider {
     static var previews: some View {
-        DisclosureView(hubArray: [heartRateItem(date: "11", hr: "22"), heartRateItem(date: "33", hr: "44")], DisclosureGroupName: "date here")
+        DisclosureView(hubArray: [heartRateItem(x: 0.0, y: 0.0, date: "00-00-0000", value: "123")], DisclosureGroupName: "date here")
             .previewLayout(.sizeThatFits)
             .padding()
     }

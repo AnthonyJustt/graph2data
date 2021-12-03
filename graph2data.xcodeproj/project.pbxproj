@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		494C4AA226FFD36D0023D1B3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494C4AA126FFD36D0023D1B3 /* HealthKit.framework */; };
+		491F82002759FB80003B5195 /* HealthKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F81FF2759FB80003B5195 /* HealthKitSupport.swift */; };
+		491F8204275A03DD003B5195 /* buttonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F8203275A03DD003B5195 /* buttonStyle.swift */; };
+		491F8206275A0C7E003B5195 /* methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F8205275A0C7D003B5195 /* methods.swift */; };
 		49555A93271475CE00A78541 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8D271475CE00A78541 /* DisclosureView.swift */; };
-		49555A94271475CE00A78541 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8F271475CE00A78541 /* ContentView.swift */; };
+		49555A94271475CE00A78541 /* HeartRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8F271475CE00A78541 /* HeartRate.swift */; };
 		49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A90271475CE00A78541 /* graph2dataApp.swift */; };
 		49555A96271475CE00A78541 /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A91271475CE00A78541 /* HealthView.swift */; };
 		49555A98271475F900A78541 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49555A97271475F900A78541 /* Assets.xcassets */; };
@@ -17,21 +19,46 @@
 		49555A9D2714777800A78541 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A9C2714777800A78541 /* HealthStore.swift */; };
 		4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22127216C9E00AED7E8 /* Localizable.strings */; };
 		4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22427216CAA00AED7E8 /* Localizable.strings */; };
+		49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2D2754BCA0001EDB2D /* MainView.swift */; };
+		49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */; };
+		49CD6B322754C695001EDB2D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B312754C695001EDB2D /* ImagePicker.swift */; };
+		49CD6B3327557629001EDB2D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494C4AA126FFD36D0023D1B3 /* HealthKit.framework */; };
+		49DFA2E1273EE34700BB470D /* graph2dataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFA2E0273EE34700BB470D /* graph2dataUITests.swift */; };
+		49DFA2E3273EE34700BB470D /* graph2dataUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFA2E2273EE34700BB470D /* graph2dataUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		49DFA2E4273EE34700BB470D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 494273BD26F64695004535DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 494273C426F64695004535DF;
+			remoteInfo = graph2data;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		491F81FF2759FB80003B5195 /* HealthKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSupport.swift; sourceTree = "<group>"; };
+		491F8203275A03DD003B5195 /* buttonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonStyle.swift; sourceTree = "<group>"; };
+		491F8205275A0C7D003B5195 /* methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = methods.swift; sourceTree = "<group>"; };
 		494273C526F64695004535DF /* graph2data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graph2data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494C4AA126FFD36D0023D1B3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		49555A8D271475CE00A78541 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = graph2data/DisclosureView.swift; sourceTree = SOURCE_ROOT; };
 		49555A8E271475CE00A78541 /* graph2data.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = graph2data.entitlements; path = graph2data/graph2data.entitlements; sourceTree = SOURCE_ROOT; };
-		49555A8F271475CE00A78541 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = graph2data/ContentView.swift; sourceTree = SOURCE_ROOT; };
+		49555A8F271475CE00A78541 /* HeartRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartRate.swift; path = graph2data/HeartRate.swift; sourceTree = SOURCE_ROOT; };
 		49555A90271475CE00A78541 /* graph2dataApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = graph2dataApp.swift; path = graph2data/graph2dataApp.swift; sourceTree = SOURCE_ROOT; };
 		49555A91271475CE00A78541 /* HealthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthView.swift; path = graph2data/HealthView.swift; sourceTree = SOURCE_ROOT; };
 		49555A97271475F900A78541 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = graph2data/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		49555A9A2714760600A78541 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		49555A9C2714777800A78541 /* HealthStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthStore.swift; path = graph2data/HealthStore.swift; sourceTree = SOURCE_ROOT; };
+		49555A9C2714777800A78541 /* HealthStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthStore.swift; path = graph2data/HealthKit/HealthStore.swift; sourceTree = SOURCE_ROOT; };
 		4962B22227216C9E00AED7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		4962B22527216CAA00AED7E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		49CD6B2D2754BCA0001EDB2D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodOxygen.swift; sourceTree = "<group>"; };
+		49CD6B312754C695001EDB2D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		49DFA2DE273EE34700BB470D /* graph2dataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = graph2dataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49DFA2E0273EE34700BB470D /* graph2dataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = graph2dataUITests.swift; sourceTree = "<group>"; };
+		49DFA2E2273EE34700BB470D /* graph2dataUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = graph2dataUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,18 +66,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				494C4AA226FFD36D0023D1B3 /* HealthKit.framework in Frameworks */,
+				49CD6B3327557629001EDB2D /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49DFA2DB273EE34700BB470D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		491F81FE2759F966003B5195 /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				49555A9C2714777800A78541 /* HealthStore.swift */,
+				491F81FF2759FB80003B5195 /* HealthKitSupport.swift */,
+			);
+			path = HealthKit;
+			sourceTree = "<group>";
+		};
 		494273BC26F64695004535DF = {
 			isa = PBXGroup;
 			children = (
 				4962B21E27216C8400AED7E8 /* Local */,
 				494273C726F64695004535DF /* graph2data */,
+				49DFA2DF273EE34700BB470D /* graph2dataUITests */,
 				494273C626F64695004535DF /* Products */,
 				494C4AA026FFD36D0023D1B3 /* Frameworks */,
 			);
@@ -60,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				494273C526F64695004535DF /* graph2data.app */,
+				49DFA2DE273EE34700BB470D /* graph2dataUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,14 +112,19 @@
 		494273C726F64695004535DF /* graph2data */ = {
 			isa = PBXGroup;
 			children = (
-				49555A8F271475CE00A78541 /* ContentView.swift */,
+				491F8205275A0C7D003B5195 /* methods.swift */,
+				491F81FE2759F966003B5195 /* HealthKit */,
+				49555A8F271475CE00A78541 /* HeartRate.swift */,
 				49555A8D271475CE00A78541 /* DisclosureView.swift */,
 				49555A8E271475CE00A78541 /* graph2data.entitlements */,
 				49555A90271475CE00A78541 /* graph2dataApp.swift */,
-				49555A9C2714777800A78541 /* HealthStore.swift */,
 				49555A992714760600A78541 /* Preview Content */,
 				49555A91271475CE00A78541 /* HealthView.swift */,
 				49555A97271475F900A78541 /* Assets.xcassets */,
+				49CD6B2D2754BCA0001EDB2D /* MainView.swift */,
+				49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */,
+				49CD6B312754C695001EDB2D /* ImagePicker.swift */,
+				491F8203275A03DD003B5195 /* buttonStyle.swift */,
 			);
 			path = graph2data;
 			sourceTree = "<group>";
@@ -121,6 +171,15 @@
 			path = ru;
 			sourceTree = "<group>";
 		};
+		49DFA2DF273EE34700BB470D /* graph2dataUITests */ = {
+			isa = PBXGroup;
+			children = (
+				49DFA2E0273EE34700BB470D /* graph2dataUITests.swift */,
+				49DFA2E2273EE34700BB470D /* graph2dataUITestsLaunchTests.swift */,
+			);
+			path = graph2dataUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,6 +200,24 @@
 			productReference = 494273C526F64695004535DF /* graph2data.app */;
 			productType = "com.apple.product-type.application";
 		};
+		49DFA2DD273EE34700BB470D /* graph2dataUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49DFA2E8273EE34700BB470D /* Build configuration list for PBXNativeTarget "graph2dataUITests" */;
+			buildPhases = (
+				49DFA2DA273EE34700BB470D /* Sources */,
+				49DFA2DB273EE34700BB470D /* Frameworks */,
+				49DFA2DC273EE34700BB470D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49DFA2E5273EE34700BB470D /* PBXTargetDependency */,
+			);
+			name = graph2dataUITests;
+			productName = graph2dataUITests;
+			productReference = 49DFA2DE273EE34700BB470D /* graph2dataUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -148,11 +225,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					494273C426F64695004535DF = {
 						CreatedOnToolsVersion = 13.0;
+					};
+					49DFA2DD273EE34700BB470D = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 494273C426F64695004535DF;
 					};
 				};
 			};
@@ -171,6 +252,7 @@
 			projectRoot = "";
 			targets = (
 				494273C426F64695004535DF /* graph2data */,
+				49DFA2DD273EE34700BB470D /* graph2dataUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +269,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49DFA2DC273EE34700BB470D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -195,14 +284,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				49555A9D2714777800A78541 /* HealthStore.swift in Sources */,
+				491F82002759FB80003B5195 /* HealthKitSupport.swift in Sources */,
+				49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */,
+				491F8204275A03DD003B5195 /* buttonStyle.swift in Sources */,
+				491F8206275A0C7E003B5195 /* methods.swift in Sources */,
+				49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */,
 				49555A93271475CE00A78541 /* DisclosureView.swift in Sources */,
-				49555A94271475CE00A78541 /* ContentView.swift in Sources */,
+				49555A94271475CE00A78541 /* HeartRate.swift in Sources */,
+				49CD6B322754C695001EDB2D /* ImagePicker.swift in Sources */,
 				49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */,
 				49555A96271475CE00A78541 /* HealthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49DFA2DA273EE34700BB470D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49DFA2E3273EE34700BB470D /* graph2dataUITestsLaunchTests.swift in Sources */,
+				49DFA2E1273EE34700BB470D /* graph2dataUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49DFA2E5273EE34700BB470D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 494273C426F64695004535DF /* graph2data */;
+			targetProxy = 49DFA2E4273EE34700BB470D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4962B22127216C9E00AED7E8 /* Localizable.strings */ = {
@@ -228,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -289,6 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -345,7 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = graph2data/pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = graph2data/graph2data.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"graph2data/Preview Content\"";
@@ -379,7 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = graph2data/pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = graph2data/graph2data.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"graph2data/Preview Content\"";
@@ -408,6 +522,50 @@
 			};
 			name = Release;
 		};
+		49DFA2E6273EE34700BB470D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A3KBNB28AF;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AK.graph2dataUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = graph2data;
+			};
+			name = Debug;
+		};
+		49DFA2E7273EE34700BB470D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A3KBNB28AF;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AK.graph2dataUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = graph2data;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -425,6 +583,15 @@
 			buildConfigurations = (
 				494273D426F64697004535DF /* Debug */,
 				494273D526F64697004535DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49DFA2E8273EE34700BB470D /* Build configuration list for PBXNativeTarget "graph2dataUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49DFA2E6273EE34700BB470D /* Debug */,
+				49DFA2E7273EE34700BB470D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

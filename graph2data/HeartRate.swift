@@ -188,7 +188,7 @@ struct HeartRate: View {
                         }
                         
                         Button("Get Date", action: {
-                            detectTextWithVision(imageName: "IMG",date: hrDate)
+//                            detectTextWithVision(imageName: "IMG",date: hrDate)
                         })
                             .accessibilityIdentifier("get_date")
                             .buttonStyle(customButton(fillColor: Color("AccentColor")))

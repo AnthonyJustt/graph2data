@@ -19,44 +19,44 @@ struct healthItem: Identifiable {
 }
 
 struct ImageView: View {
-  var uiImage: UIImage
-  
-  var body: some View {
-    Image(uiImage: uiImage)
-      .resizable()
-      .scaledToFit()
-  }
+    var uiImage: UIImage
+    
+    var body: some View {
+        Image(uiImage: uiImage)
+            .resizable()
+            .scaledToFit()
+    }
 }
 
 func cropImage(_ inputImage: UIImage, toRect cropRect: CGRect, viewWidth: CGFloat, viewHeight: CGFloat) -> UIImage?
 {
     let imageViewScale = max(inputImage.size.width / viewWidth,
                              inputImage.size.height / viewHeight)
-
+    
     // Scale cropRect to handle images larger than shown-on-screen size
     let cropZone = CGRect(x:cropRect.origin.x * imageViewScale,
                           y:cropRect.origin.y * imageViewScale,
                           width:cropRect.size.width * imageViewScale,
                           height:cropRect.size.height * imageViewScale)
-
+    
     // Perform cropping in Core Graphics
     guard let cutImageRef: CGImage = inputImage.cgImage?.cropping(to:cropZone)
     else {
         return nil
     }
-
+    
     // Return image to UIImage
     let croppedImage: UIImage = UIImage(cgImage: cutImageRef)
     return croppedImage
 }
 
-func detectTextWithVision(imageName: String, date: Date) {
-    // Для распознавания текста на изображении
-    // Из распознанного берем только [1] строчку - дату
+func detectTextWithVision(imageN: UIImage) -> [String] {
+    var s: [String] = []
     
-    guard let cgImage = UIImage(named: imageName)?.cgImage else {
+    guard let cgImage = imageN.cgImage else {
         fatalError("could not get cgimage")
     }
+    
     let requestHandler = VNImageRequestHandler(cgImage: cgImage)
     let request = VNRecognizeTextRequest {  request, error in
         guard let observations = request.results as? [VNRecognizedTextObservation],
@@ -64,16 +64,9 @@ func detectTextWithVision(imageName: String, date: Date) {
                   return
               }
         
-        let text = observations.compactMap({
-            $0.topCandidates(1).first!.string
-        })//.joined(separator: ", ")
-        
-        DispatchQueue.main.async {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "d MMM y"
-            //rateDate = dateFormatter.date(from: text[1])!
-            print(dateFormatter.date(from: text[1])!)
-        }
+        let text = observations.compactMap({$0.topCandidates(1).first!.string}) //.joined(separator: ", ")
+        s = text
+       // print(text)
     }
     
     do {
@@ -81,6 +74,8 @@ func detectTextWithVision(imageName: String, date: Date) {
     } catch {
         print(error)
     }
+    
+    return s
 }
 
 func hexStringFromColor(color: UIColor) -> String {
@@ -169,13 +164,13 @@ func bo_getStartAndEndPoints(inputImage: UIImage) -> (Float, Int, Int) {
     var bo_end = 0
     var bo_koef: Float = 0.0
     
-  
-
-        point = CGPoint(x: 207, y: bo_YStart)
-        uiColor = inputImage.getPixelColor(pos: point)
-        print(uiColor)
+    
+    
+    point = CGPoint(x: 207, y: bo_YStart)
+    uiColor = inputImage.getPixelColor(pos: point)
+    print(uiColor)
     print(hexStringFromColor(color: uiColor))
-
+    
     
     
     for i in 0...Int(inputImage.size.width /* ?? 0 */) {

@@ -25,7 +25,6 @@ struct BloodOxygen: View {
     @State private var boDate = Date()
     // Дата на изображении, определятеся с помощью Vision позднее, либо задается вручную
     
-    @State private var inputImage: UIImage?
     @State private var photoPickerIsPresented = false
     @State var pickerResult: [UIImage] = []
     
@@ -37,7 +36,7 @@ struct BloodOxygen: View {
     
     
     func changeArray() {
-        for (index, element) in bo_values.enumerated() {
+        for (index, _) in bo_values.enumerated() {
             bo_values[index].value = arrayRes[index]
         }
     }
@@ -99,17 +98,19 @@ struct BloodOxygen: View {
                             photoPickerIsPresented = true
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
+                        
                         Button("Crop Image", action: {
-                            
                          var croppeduiimage = cropImage(pickerResult[0], toRect: CGRect(x: 1000, y: 150, width: 400, height: 100), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
-                            
                             
                             pickerResult.append(croppeduiimage!)
                             
+                           print( detectTextWithVision(imageN: croppeduiimage!))
+                            
                              croppeduiimage = cropImage(pickerResult[0], toRect: CGRect(x: 2200, y: 300, width: 100, height: 450), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
                                
-                               
                                pickerResult.append(croppeduiimage!)
+                            
+                           print( detectTextWithVision(imageN: croppeduiimage!))
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
                     }
@@ -133,18 +134,18 @@ struct BloodOxygen: View {
                     
                     HStack {
                         Button("1. get start", action: {
-                            (bo_koef, bo_start, bo_end) = bo_getStartAndEndPoints(inputImage: inputImage!)
+                            (bo_koef, bo_start, bo_end) = bo_getStartAndEndPoints(inputImage: pickerResult[0])
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
                         
                         Button("2. get pixel color", action: {
-                            bo_values = bo_getBloodOxygen(inputImage: inputImage!, bo_start: bo_start, bo_koef: bo_koef)
+                            bo_values = bo_getBloodOxygen(inputImage: pickerResult[0], bo_start: bo_start, bo_koef: bo_koef)
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
                     }
                     
                     Button("3. scan bars", action: {
-                        arrayRes = bo_scanBars(inputImage: inputImage!, bo_values: bo_values, boLOwerBound: boLOwerBound, boHighestBound: boHighestBound)
+                        arrayRes = bo_scanBars(inputImage: pickerResult[0], bo_values: bo_values, boLOwerBound: boLOwerBound, boHighestBound: boHighestBound)
                         changeArray()
                     })
                         .buttonStyle(customButton(fillColor: .cyan))

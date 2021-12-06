@@ -10,6 +10,7 @@
 		491F82002759FB80003B5195 /* HealthKitSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F81FF2759FB80003B5195 /* HealthKitSupport.swift */; };
 		491F8204275A03DD003B5195 /* buttonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F8203275A03DD003B5195 /* buttonStyle.swift */; };
 		491F8206275A0C7E003B5195 /* methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F8205275A0C7D003B5195 /* methods.swift */; };
+		492B9F01275EA7FE008484C1 /* PHPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492B9F00275EA7FE008484C1 /* PHPhotoPicker.swift */; };
 		49555A93271475CE00A78541 /* DisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8D271475CE00A78541 /* DisclosureView.swift */; };
 		49555A94271475CE00A78541 /* HeartRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A8F271475CE00A78541 /* HeartRate.swift */; };
 		49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A90271475CE00A78541 /* graph2dataApp.swift */; };
@@ -19,9 +20,9 @@
 		49555A9D2714777800A78541 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A9C2714777800A78541 /* HealthStore.swift */; };
 		4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22127216C9E00AED7E8 /* Localizable.strings */; };
 		4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22427216CAA00AED7E8 /* Localizable.strings */; };
+		49A9B0AC275D5C6C0067148C /* saveToLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9B0AB275D5C6B0067148C /* saveToLocal.swift */; };
 		49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2D2754BCA0001EDB2D /* MainView.swift */; };
 		49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */; };
-		49CD6B322754C695001EDB2D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B312754C695001EDB2D /* ImagePicker.swift */; };
 		49CD6B3327557629001EDB2D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494C4AA126FFD36D0023D1B3 /* HealthKit.framework */; };
 		49DFA2E1273EE34700BB470D /* graph2dataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFA2E0273EE34700BB470D /* graph2dataUITests.swift */; };
 		49DFA2E3273EE34700BB470D /* graph2dataUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DFA2E2273EE34700BB470D /* graph2dataUITestsLaunchTests.swift */; };
@@ -41,6 +42,7 @@
 		491F81FF2759FB80003B5195 /* HealthKitSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSupport.swift; sourceTree = "<group>"; };
 		491F8203275A03DD003B5195 /* buttonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonStyle.swift; sourceTree = "<group>"; };
 		491F8205275A0C7D003B5195 /* methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = methods.swift; sourceTree = "<group>"; };
+		492B9F00275EA7FE008484C1 /* PHPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoPicker.swift; sourceTree = "<group>"; };
 		494273C526F64695004535DF /* graph2data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graph2data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494C4AA126FFD36D0023D1B3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		49555A8D271475CE00A78541 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = graph2data/DisclosureView.swift; sourceTree = SOURCE_ROOT; };
@@ -53,9 +55,9 @@
 		49555A9C2714777800A78541 /* HealthStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthStore.swift; path = graph2data/HealthKit/HealthStore.swift; sourceTree = SOURCE_ROOT; };
 		4962B22227216C9E00AED7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		4962B22527216CAA00AED7E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		49A9B0AB275D5C6B0067148C /* saveToLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveToLocal.swift; sourceTree = "<group>"; };
 		49CD6B2D2754BCA0001EDB2D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodOxygen.swift; sourceTree = "<group>"; };
-		49CD6B312754C695001EDB2D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		49DFA2DE273EE34700BB470D /* graph2dataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = graph2dataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49DFA2E0273EE34700BB470D /* graph2dataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = graph2dataUITests.swift; sourceTree = "<group>"; };
 		49DFA2E2273EE34700BB470D /* graph2dataUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = graph2dataUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -112,19 +114,20 @@
 		494273C726F64695004535DF /* graph2data */ = {
 			isa = PBXGroup;
 			children = (
+				49555A90271475CE00A78541 /* graph2dataApp.swift */,
 				491F8205275A0C7D003B5195 /* methods.swift */,
 				491F81FE2759F966003B5195 /* HealthKit */,
 				49555A8F271475CE00A78541 /* HeartRate.swift */,
 				49555A8D271475CE00A78541 /* DisclosureView.swift */,
 				49555A8E271475CE00A78541 /* graph2data.entitlements */,
-				49555A90271475CE00A78541 /* graph2dataApp.swift */,
 				49555A992714760600A78541 /* Preview Content */,
 				49555A91271475CE00A78541 /* HealthView.swift */,
 				49555A97271475F900A78541 /* Assets.xcassets */,
 				49CD6B2D2754BCA0001EDB2D /* MainView.swift */,
 				49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */,
-				49CD6B312754C695001EDB2D /* ImagePicker.swift */,
 				491F8203275A03DD003B5195 /* buttonStyle.swift */,
+				49A9B0AB275D5C6B0067148C /* saveToLocal.swift */,
+				492B9F00275EA7FE008484C1 /* PHPhotoPicker.swift */,
 			);
 			path = graph2data;
 			sourceTree = "<group>";
@@ -284,6 +287,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				49555A9D2714777800A78541 /* HealthStore.swift in Sources */,
+				49A9B0AC275D5C6C0067148C /* saveToLocal.swift in Sources */,
+				492B9F01275EA7FE008484C1 /* PHPhotoPicker.swift in Sources */,
 				491F82002759FB80003B5195 /* HealthKitSupport.swift in Sources */,
 				49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */,
 				491F8204275A03DD003B5195 /* buttonStyle.swift in Sources */,
@@ -291,7 +296,6 @@
 				49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */,
 				49555A93271475CE00A78541 /* DisclosureView.swift in Sources */,
 				49555A94271475CE00A78541 /* HeartRate.swift in Sources */,
-				49CD6B322754C695001EDB2D /* ImagePicker.swift in Sources */,
 				49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */,
 				49555A96271475CE00A78541 /* HealthView.swift in Sources */,
 			);

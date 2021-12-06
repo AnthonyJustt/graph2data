@@ -50,7 +50,7 @@ struct HeartRate: View {
     @State private var xCount: Int = 0
     // количество найденных на графике точек
     
-    @State private var rateDate = Date()
+    @State private var hrDate = Date()
     // Дата на изображении, определятеся с помощью Vision позднее, либо задается вручную
     
     let concurrentQueueStart = DispatchQueue(label: "get_xStart_xEnd", attributes: .concurrent)
@@ -65,6 +65,8 @@ struct HeartRate: View {
     
     @State var shouldHide = true
     // ProgressView скрыт до начала анализа
+    
+    @State private var showingHealthView = false
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -85,7 +87,7 @@ struct HeartRate: View {
                         .opacity(shouldHide ? 0 : 1)
                     
                     GroupBox {
-                        DatePicker(selection: $rateDate, in: ...Date(), displayedComponents: .date) {
+                        DatePicker(selection: $hrDate, in: ...Date(), displayedComponents: .date) {
                             HStack {
                                 Image(systemName: "calendar")
                                     .foregroundColor(.secondary)
@@ -186,7 +188,7 @@ struct HeartRate: View {
                         }
                         
                         Button("Get Date", action: {
-                            detectTextWithVision(imageName: "IMG",date: rateDate)
+                            detectTextWithVision(imageName: "IMG",date: hrDate)
                         })
                             .accessibilityIdentifier("get_date")
                             .buttonStyle(customButton(fillColor: Color("AccentColor")))
@@ -205,13 +207,14 @@ struct HeartRate: View {
                             .padding()
                     }
                     
-                    DisclosureView(hubArray: [heartRateItem(x: 0.0, y: 0.0, date: "00-00-0000", value: "")], DisclosureGroupName: "\(rateDate.formatted(date: .long, time: .omitted))")
+                    DisclosureView(hubArray: [healthItem(x: 0.0, y: 0.0, date: "00-00-0000", value: "")], DisclosureGroupName: "\(hrDate.formatted(date: .long, time: .omitted))")
                     
                     Divider()
                         .padding()
                     
                     Button(action: {
                         print("Export to Apple Health")
+                        showingHealthView.toggle()
                     }, label: {
                         HStack {
                             Image(systemName: "square.and.arrow.up")
@@ -231,6 +234,9 @@ struct HeartRate: View {
             }
             .navigationTitle(LocalizedStringKey("HeartRate.Title"))
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showingHealthView) {
+                HealthView(date: hrDate, type: "Heart Rate", healthValues: [])
+            }
         }
     }
 }

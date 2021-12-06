@@ -12,7 +12,7 @@ struct pixelsApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-            // HealthView()
+          //   HealthView()
         }
     }
 }

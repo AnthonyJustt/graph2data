@@ -7,16 +7,8 @@
 
 import SwiftUI
 
-struct heartRateItem: Identifiable {
-    var id = UUID()
-    var x: CGFloat
-    var y: CGFloat
-    var date: String
-    var value: String
-}
-
 struct DisclosureView: View {
-    var hubArray: [ heartRateItem ]
+    var hubArray: [ healthItem ]
     var DisclosureGroupName: String = ""
     
     var body: some View {
@@ -44,7 +36,12 @@ struct DisclosureView: View {
 
 struct DisclosureView_Previews: PreviewProvider {
     static var previews: some View {
-        DisclosureView(hubArray: [heartRateItem(x: 0.0, y: 0.0, date: "00-00-0000", value: "123")], DisclosureGroupName: "date here")
+        DisclosureView(hubArray: [healthItem(
+            x: 0.0,
+            y: 0.0,
+            date: "00-00-0000",
+            value: "123"
+        )], DisclosureGroupName: "date here")
             .previewLayout(.sizeThatFits)
             .padding()
     }

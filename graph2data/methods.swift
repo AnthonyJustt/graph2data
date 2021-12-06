@@ -10,6 +10,46 @@ import Vision
 
 // MARK: Common Methods
 
+struct healthItem: Identifiable {
+    var id = UUID()
+    var x: CGFloat
+    var y: CGFloat
+    var date: String
+    var value: String
+}
+
+struct ImageView: View {
+  var uiImage: UIImage
+  
+  var body: some View {
+    Image(uiImage: uiImage)
+      .resizable()
+      .scaledToFit()
+  }
+}
+
+func cropImage(_ inputImage: UIImage, toRect cropRect: CGRect, viewWidth: CGFloat, viewHeight: CGFloat) -> UIImage?
+{
+    let imageViewScale = max(inputImage.size.width / viewWidth,
+                             inputImage.size.height / viewHeight)
+
+    // Scale cropRect to handle images larger than shown-on-screen size
+    let cropZone = CGRect(x:cropRect.origin.x * imageViewScale,
+                          y:cropRect.origin.y * imageViewScale,
+                          width:cropRect.size.width * imageViewScale,
+                          height:cropRect.size.height * imageViewScale)
+
+    // Perform cropping in Core Graphics
+    guard let cutImageRef: CGImage = inputImage.cgImage?.cropping(to:cropZone)
+    else {
+        return nil
+    }
+
+    // Return image to UIImage
+    let croppedImage: UIImage = UIImage(cgImage: cutImageRef)
+    return croppedImage
+}
+
 func detectTextWithVision(imageName: String, date: Date) {
     // Для распознавания текста на изображении
     // Из распознанного берем только [1] строчку - дату
@@ -79,6 +119,7 @@ func hexStringToUIColor (hex:String) -> UIColor {
 }
 
 extension UIImage {
+    
     func getPixelColor(pos: CGPoint) -> UIColor {
         // Получение информации о пикселе
         
@@ -87,7 +128,7 @@ extension UIImage {
         
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
         
-        let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
+        let r = CGFloat(data[pixelInfo+0]) / CGFloat(255.0)
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
@@ -100,6 +141,9 @@ extension UIImage {
 
 // MARK: Blood Oxygen Methods
 
+private let bo_YStart = 860 // положение нижнего серого бара = минимальное значение
+private let bo_minBar = 800 // на этой высоте начинаем искать зеленые бары
+
 func bo_minutesToTime(mins: Int) -> String {
     let seconds = mins * 60
     let dcf = DateComponentsFormatter()
@@ -111,36 +155,176 @@ func bo_minutesToTime(mins: Int) -> String {
     return dcfstring ?? "nil"
 }
 
-func bo_scanBars(array: [heartRateItem]) {
+func bo_getStartAndEndPoints(inputImage: UIImage) -> (Float, Int, Int) {
+    // определяем положение нижней границы - шкалы времени (сейчас она находится на высоте в bo_YStart px)
+    // рассчитываем коэффициенты для перевода координат в значения
+    
+    print("bo_getStartAndEndPoints was started")
+    print("image size: \(inputImage.size.width) x \(inputImage.size.height)")
     
     var point = CGPoint(x: 0, y: 0)
-    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
+    var uiColor = inputImage.getPixelColor(pos: point) //?? .black
+    let UIColorToCompare = hexStringToUIColor(hex: "#EEEEEE")
+    var bo_start = 0
+    var bo_end = 0
+    var bo_koef: Float = 0.0
+    
+  
+
+        point = CGPoint(x: 207, y: bo_YStart)
+        uiColor = inputImage.getPixelColor(pos: point)
+        print(uiColor)
+    print(hexStringFromColor(color: uiColor))
+
+    
+    
+    for i in 0...Int(inputImage.size.width /* ?? 0 */) {
+        point = CGPoint(x: i, y: bo_YStart)
+        uiColor = inputImage.getPixelColor(pos: point) //?? .black
+        if uiColor == UIColorToCompare {
+            bo_start = i
+            print("bo_start = \(bo_start)")
+            break
+        }
+    }
+    
+    //    point = CGPoint(x: 2190, y: bo_YStart)
+    //    uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
+    //    print(hexStringFromColor(color: uiColor))
+    
+    // 1440 минут в 2192-207 пикселей = 1985 пикселей
+    // 1985 / 1440 = 1,3784722222
+    
+    //255-207 = 48 пикселей
+    // 48 / 1,378_4722222 ~~ 0 часов 35 минут
+    
+    
+    // 2166-207 = 1959
+    // 1959 / 1,378_4722222 ~~ 1421 минута ~~ 23 часа 41 минута
+    
+    for i in stride(from: Int(inputImage.size.width /* ?? 0 */), to: 0, by: -1) {
+        point = CGPoint(x: i, y: bo_YStart)
+        uiColor = inputImage.getPixelColor(pos: point) //?? .black
+        if uiColor == UIColorToCompare {
+            bo_end = i
+            print("bo_end = \(bo_end)")
+            break
+        }
+    }
+    
+    bo_koef = (Float(bo_end - bo_start)) / Float(1440)
+    
+    print("bo_koef = \(bo_koef)")
+    print("bo_getStartAndEndPoints was finished")
+    
+    return (bo_koef, bo_start, bo_end)
+}
+
+func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ healthItem ] {
+    
+    //    var point = CGPoint(x: 911, y: 500)
+    //    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point)
+    //    print(hexStringFromColor(color: uiColor ?? .black))
+    // #66B651
+    
+    //!!!
+    // #65B751
+    // #66B651
+    
+    print("bo_getBloodOxygen was started")
+    
+    var sss: String = ""
+    var ssss: String = ""
+    var point = CGPoint(x: 0, y: 0)
+    var uiColor = inputImage.getPixelColor(pos: point) //?? .black
+    
+    var x_prev: Int = 0
+    
+    var bo_values: [healthItem] = []
+    
+    //    var uiColor = UIColor.black
+    //
+    //let UIColorToCompare = hexStringToUIColor(hex: "#65B751")
+    //
+    
+    //
+    for i in 0...Int(inputImage.size.width /* ?? 0 */) {
+        point = CGPoint(x: i, y: bo_minBar)
+        uiColor = inputImage.getPixelColor(pos: point) //?? .black
+        
+        
+        
+        sss = hexStringFromColor(color: uiColor)
+        ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
+        
+        
+        if ssss == "#64B" || ssss == "#65B" || ssss == "#66B"{
+            if Int(point.x)-x_prev > 4 {
+                // следующее значение должно быть минимум через 4 пикселя от полученного на предыдущей итерации
+                
+                print("x: \(point.x), y: \(point.y) - \(bo_minutesToTime(mins: Int(Float(Int(point.x) - bo_start) / bo_koef)))")
+                
+                bo_values.append(healthItem(
+                    x: point.x,
+                    y: point.y,
+                    date: bo_minutesToTime(mins: Int(Float(Int(point.x) - bo_start) / bo_koef)),
+                    value: ""))
+                
+                x_prev = Int(point.x)
+            }
+        }
+        
+        //        let UIColorToCompare = hexStringToUIColor(hex: "#FFFFFF")
+        //        if uiColor != UIColorToCompare {
+        //                    print("x: \(point.x), y: \(point.y), \(hexStringFromColor(color: uiColor))")
+        //                    //break
+        //                }
+    }
+    
+    print("bo_barsCount = \(bo_values.count)")
+    
+    print("bo_getBloodOxygen was finished")
+    
+    return bo_values
+}
+
+func bo_scanBars(inputImage: UIImage, bo_values: [healthItem], boLOwerBound: Int, boHighestBound: Int) -> [String] {
+    
+    print("bo_scanBars was started")
+    
+    var point = CGPoint(x: 0, y: 0)
+    var uiColor = inputImage.getPixelColor(pos: point) //?? .black
     
     var sss: String = ""
     var ssss: String = ""
     
     var arrayY: [Int] = []
+    var arrayRes: [String] = []
+    var yres: Int = 0
     
-    for value_item in array {
-        for i in 0...Int(UIImage(named: "IMG2")?.size.height ?? 0) {
+    for value_item in bo_values {
+        for i in 0...Int(inputImage.size.height /* ?? 0 */) {
             point = CGPoint(x: Int(value_item.x), y: i)
-            uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
+            uiColor = inputImage.getPixelColor(pos: point) //?? .black
             
             sss = hexStringFromColor(color: uiColor)
             ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
             if ssss == "#64B" || ssss == "#65B" || ssss == "#66B" {
-                print("\(i), \(860 - i)")
-                arrayY.append(860 - i)
+                print("\(i), \(bo_YStart - i)")
+                arrayY.append(bo_YStart - i)
                 break
             }
         }
     }
     
     let maxValue = arrayY.max() ?? 0
-    print(maxValue)
+    print("maxValue = \(maxValue)")
     
-    // 860 - минимум - boLOwerBound = 75
+    // bo_YStart = 860 - минимум - boLOwerBound = 75
     // maxValue = 526 - максимум - boHighestBound или boMaxLevel = 100
+    
+    let koef: Float = Float(maxValue) / Float(boHighestBound - boLOwerBound)
+    print("koef = \(koef)")
     
     // 526 / (100-75) = 21,04
     // 526 / 21,04 = 25 + 75 = 100
@@ -156,113 +340,18 @@ func bo_scanBars(array: [heartRateItem]) {
     for bo in arrayY {
         if maxValue - bo <= 3 {
             print(100)
+            arrayRes.append("100")
         } else {
-            print(Int(Double(bo)/17.5333333333+70.0))
+            yres = Int(Float(bo)/koef + Float(boLOwerBound))
+            print(yres)
+            arrayRes.append(String(yres))
         }
     }
     
-}
-
-func bo_getStartAndEndPoints() {
-    var point = CGPoint(x: 0, y: 0)
-    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-    let UIColorToCompare = hexStringToUIColor(hex: "#EEEEEE")
-    var start = 0
-    var end = 0
+    print("bo_scanBars was finished")
     
-    for i in 0...Int(UIImage(named: "IMG2")?.size.width ?? 0) {
-        point = CGPoint(x: i, y: 860)
-        //  print(i)
-        uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-        if uiColor == UIColorToCompare {
-            start = i
-            // bo_start = i
-            print(start)
-            break
-        }
-    }
+    return arrayRes
     
-    //    point = CGPoint(x: 2190, y: 860)
-    //    uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-    //    print(hexStringFromColor(color: uiColor))
-    
-    // 1440 минут в 2192-207 пикселей = 1985 пикселей
-    // 1985 / 1440 = 1,378_4722222
-    
-    //255-207 = 48 пикселей
-    // 48 / 1,378_4722222 ~~ 0 часов 35 минут
-    
-    
-    // 2166-207 = 1959
-    // 1959 / 1,378_4722222 ~~ 1421 минута ~~ 23 часа 41 минута
-    
-    for i in stride(from: Int(UIImage(named: "IMG2")?.size.width ?? 0), to: 0, by: -1) {
-        point = CGPoint(x: i, y: 860)
-        // print(i)
-        uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-        if uiColor == UIColorToCompare {
-            end = i
-            print(end)
-            break
-        }
-    }
-    
-    // bo_koef = (Float(end) - Float(start)) / Float(1440)
-}
-
-func bo_getBloodOxygen() {
-    
-    //    var point = CGPoint(x: 911, y: 500)
-    //    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point)
-    //    print(hexStringFromColor(color: uiColor ?? .black))
-    // #66B651
-    
-    //!!!
-    // #65B751
-    // #66B651
-    
-    var sss: String = ""
-    var ssss: String = ""
-    var point = CGPoint(x: 0, y: 0)
-    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-    
-    var x_prev: Int = 0
-    
-    //    var uiColor = UIColor.black
-    //
-    //let UIColorToCompare = hexStringToUIColor(hex: "#65B751")
-    //
-    print("getPixelsColors0 was started")
-    //
-    for i in 0...Int(UIImage(named: "IMG2")?.size.width ?? 0) {
-        point = CGPoint(x: i, y: Int((UIImage(named: "IMG2")?.size.height ?? 0) / 2))
-        uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point) ?? .black
-        
-        
-        
-        sss = hexStringFromColor(color: uiColor)
-        ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
-        
-        
-        if ssss == "#64B" || ssss == "#65B" || ssss == "#66B"{
-            if Int(point.x)-x_prev > 3 {
-                // следующее значение должно быть минимум через 4 пикселя от полученного на предыдущей итерации
-                
-                //    print("x: \(point.x), y: \(point.y) - \(bo_minutesToTime(mins: Int(Float(Int(point.x) - bo_start) / bo_koef)))")
-                
-                //    values.append(heartRateItem(x: point.x, y: point.y, date: bo_minutesToTime(mins: Int(Float(Int(point.x) - bo_start) / bo_koef)), value: ""))
-                
-                x_prev = Int(point.x)
-            }
-        }
-        
-        //        let UIColorToCompare = hexStringToUIColor(hex: "#FFFFFF")
-        //        if uiColor != UIColorToCompare {
-        //                    print("x: \(point.x), y: \(point.y), \(hexStringFromColor(color: uiColor))")
-        //                    //break
-        //                }
-    }
-    print("getPixelsColors0 finished")
 }
 
 

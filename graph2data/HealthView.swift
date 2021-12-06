@@ -10,19 +10,39 @@ import HealthKit
 
 struct HealthView: View {
     
+    var date: Date //= Date()
+    var type: String //= ""
+    var healthValues: [healthItem] //= [healthItem(x: 0, y: 0, date: "", value: "")]
+    
     @State private var showingNoHealthAlert = false
     
-    private var healthStore: HealthStore?
-    init() {
-        healthStore = HealthStore()
-    }
+    var healthStore: HealthStore? = HealthStore()
+    //    init() {
+    //        healthStore = HealthStore()
+    //    }
     
     var body: some View {
-        Text("Authorize HealthKit Access")
-            .alert(isPresented: $showingNoHealthAlert) {
-                Alert(title: Text("Health Data Unavailable"), message: Text("Unable to access health data on this device. Make sure you are using device with HealthKit capabilities."), dismissButton: .default(Text("OK")))
+        
+        VStack {
+            
+            VStack {
+                Text(type)
+                    .bold()
+                    .padding()
+                
+                    Image(systemName: "heart.text.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(Color.red, Color.clear)
+                        .font(.system(size: 60))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                .stroke(.red, lineWidth: 2)
+                        )
             }
-            .onTapGesture {
+            
+            Spacer()
+            
+            Button("Authorize HealthKit Access", action: {
                 print("Checking HealthKit authorization status...")
                 
                 if !HKHealthStore.isHealthDataAvailable() {
@@ -39,16 +59,41 @@ struct HealthView: View {
                 healthStore?.getRequestStatusForAuthorization() { success in
                     
                 }
-            }
-        
-        Text("Add data")
-            .onTapGesture {
-                didAddNewData(with: 1)
-            }
+            })
+                .buttonStyle(customButton(fillColor: .gray))
+                .padding()
+            
+            Button("Add Heart Rate Data", action: {
+                
+            })
+                .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                .padding()
+            
+            Button("Add Blood Oxygen Data", action: {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let dday = dateFormatter.string(from: date)
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                for item in healthValues {
+                    dateFormatter.dateFormat = "HH:mm:ss"
+                    let inDate = dateFormatter.date(from: item.date)!
+                    dateFormatter.dateFormat = "h:mm:ss a"
+                    let outTime = dateFormatter.string(from: inDate)
+                    
+                    didAddNewData(with: Double(item.value)! / Double(100), datetime: "\(dday)T\(outTime)")
+                }
+            })
+                .buttonStyle(customButton(fillColor: .cyan))
+                .padding()
+
+        }
+        .alert(isPresented: $showingNoHealthAlert) {
+            Alert(title: Text("Health Data Unavailable"), message: Text("Unable to access health data on this device. Make sure you are using device with HealthKit capabilities."), dismissButton: .default(Text("OK")))
+        }
     }
     
-    func didAddNewData(with value: Double) {
-        guard let sample = processHealthSample(with: value) else { return }
+    func didAddNewData(with value: Double, datetime: String) {
+        guard let sample = processHealthSample(with: value, datetime: datetime) else { return }
         
         healthStore?.saveHealthData([sample]) { (success, error) in
             if let error = error {
@@ -56,16 +101,16 @@ struct HealthView: View {
             }
             if success {
                 print("Successfully saved a new sample!", sample)
-    //                DispatchQueue.main.async { [weak self] in
-    //                    self?.reloadData()
-    //                }
+                //                DispatchQueue.main.async { [weak self] in
+                //                    self?.reloadData()
+                //                }
             } else {
                 print("Error: Could not save new sample.", sample)
             }
         }
     }
-
-    private func processHealthSample(with value: Double) -> HKObject? {
+    
+    private func processHealthSample(with value: Double, datetime: String) -> HKObject? {
         let dataTypeIdentifier = HKQuantityTypeIdentifier.oxygenSaturation.rawValue
         
         guard
@@ -77,10 +122,10 @@ struct HealthView: View {
         
         //
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        //
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'h:mm:ss a" //"yyyy-MM-dd'T'HH:mm:ss"
+        let now = dateFormatter.date(from: datetime)! //?? Date()
         
-        let now = dateFormatter.date(from: "2020-01-10T11:42:00") ?? Date()
+        //  let now = date // ?? Date()
         let start = now
         let end = now
         
@@ -98,10 +143,8 @@ struct HealthView: View {
     }
 }
 
-
-
 struct HealthView_Previews: PreviewProvider {
     static var previews: some View {
-        HealthView()
+        HealthView(date: Date(), type: "_type", healthValues: [healthItem(x: 0, y: 0, date: "", value: "0")])
     }
 }

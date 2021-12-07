@@ -10,7 +10,7 @@ import Vision
 
 // MARK: Common Methods
 
-struct healthItem: Identifiable {
+struct healthItem: Codable, Identifiable {
     var id = UUID()
     var x: CGFloat
     var y: CGFloat

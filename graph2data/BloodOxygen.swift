@@ -172,13 +172,26 @@ struct BloodOxygen: View {
                     
                     
                     Button("Save to File", action: {
-                        var s: String = ""
-                        var ss: String = ""
-                        for item in bo_values {
-                            ss = "bo,\(item.id),\(item.x),\(item.y), \(item.date),\(item.value)\n"
-                            s = s + ss
+//                        var s: String = ""
+//                        var ss: String = ""
+//                        for item in bo_values {
+//                            ss = "bo,\(item.id),\(item.x),\(item.y), \(item.date),\(item.value)\n"
+//                            s = s + ss
+//                        }
+//                        saveToFile(fileName: "date.txt", fileContent: s)
+                        
+                        
+                        let jsonEncoder = JSONEncoder()
+                        jsonEncoder.outputFormatting = .prettyPrinted
+                        do {
+                            let jsonData = try jsonEncoder.encode(bo_values)
+                            let jsonString = String(data: jsonData, encoding: .utf8)
+                            print("JSON String : " + jsonString!)
+                            
+                            saveToFile(fileName: "\(boDate.formatted(date: .numeric, time: .omitted)).json", fileContent: jsonString!)
                         }
-                        saveToFile(fileName: "date.txt", fileContent: s)
+                        catch {
+                        }
                     })
                         .padding()
                 }

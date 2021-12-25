@@ -18,6 +18,14 @@ struct healthItem: Codable, Identifiable {
     var value: String
 }
 
+struct bo_imageData: Codable, Identifiable {
+    var id = UUID()
+    var date = Date()
+    var boLOwerBound: Int
+    var boHighestBound: Int
+    var boMaxLevel: Int
+}
+
 struct ImageView: View {
     var uiImage: UIImage
     
@@ -25,6 +33,7 @@ struct ImageView: View {
         Image(uiImage: uiImage)
             .resizable()
             .scaledToFit()
+            .addPinchZoom()
     }
 }
 
@@ -207,7 +216,7 @@ func bo_getStartAndEndPoints(inputImage: UIImage) -> (Float, Int, Int) {
         }
     }
     
-    bo_koef = (Float(bo_end - bo_start)) / Float(1440)
+    bo_koef = Float((2192-207))/Float(1440)//(Float(bo_end - bo_start)) / Float(1440)
     
     print("bo_koef = \(bo_koef)")
     print("bo_getStartAndEndPoints was finished")
@@ -217,9 +226,10 @@ func bo_getStartAndEndPoints(inputImage: UIImage) -> (Float, Int, Int) {
 
 func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ healthItem ] {
     
-    //    var point = CGPoint(x: 911, y: 500)
-    //    var uiColor = UIImage(named: "IMG2")?.getPixelColor(pos: point)
-    //    print(hexStringFromColor(color: uiColor ?? .black))
+//    var point1 = CGPoint(x: 495, y: 800)
+//        var uiColor1 = inputImage.getPixelColor(pos: point1)
+//        print(hexStringFromColor(color: uiColor1))
+    
     // #66B651
     
     //!!!
@@ -253,7 +263,7 @@ func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ 
         ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
         
         
-        if ssss == "#64B" || ssss == "#65B" || ssss == "#66B"{
+        if ssss == "#62B" || ssss == "#63B" || ssss == "#64B" || ssss == "#65B" || ssss == "#66B" || ssss == "#68B" || ssss == "#69B" {
             if Int(point.x)-x_prev > 4 {
                 // следующее значение должно быть минимум через 4 пикселя от полученного на предыдущей итерации
                 
@@ -304,7 +314,7 @@ func bo_scanBars(inputImage: UIImage, bo_values: [healthItem], boLOwerBound: Int
             
             sss = hexStringFromColor(color: uiColor)
             ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
-            if ssss == "#64B" || ssss == "#65B" || ssss == "#66B" {
+            if ssss == "#62B" || ssss == "#63B" || ssss == "#64B" || ssss == "#65B" || ssss == "#66B" || ssss == "#68B" || ssss == "#69B" {
                 print("\(i), \(bo_YStart - i)")
                 arrayY.append(bo_YStart - i)
                 break
@@ -414,7 +424,7 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
     var jj = 0
     
     var xCount: Int = 0
-    var xProgress: Int = 0
+   // var xProgress: Int = 0
     
     let UIColorToCompare = hexStringToUIColor(hex: "#FC315A")
     
@@ -437,7 +447,7 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
                 break
             }
         }
-        xProgress = i
+      //  xProgress = i
     }
     print("getPixelsColors0: count = \(xCount)")
 }

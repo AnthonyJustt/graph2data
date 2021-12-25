@@ -22,6 +22,8 @@ struct BloodOxygen: View {
     
     @State private var arrayRes: [String] = []
     
+    @State private var arrayimageData: [bo_imageData] = []
+    
     @State private var boDate = Date()
     // Дата на изображении, определятеся с помощью Vision позднее, либо задается вручную
     
@@ -34,7 +36,6 @@ struct BloodOxygen: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    
     func changeArray() {
         for (index, _) in bo_values.enumerated() {
             bo_values[index].value = arrayRes[index]
@@ -45,92 +46,72 @@ struct BloodOxygen: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    
                     Image(systemName: "lungs")
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(Color.mint, Color.cyan)
                         .font(.system(size: 60))
                     
-                    GroupBox {
-                        DatePicker(selection: $boDate, in: ...Date(), displayedComponents: .date) {
-                            HStack {
-                                Image(systemName: "calendar")
-                                    .foregroundColor(.secondary)
-                                    .font(.title2)
-                                Text("Date")
-                            }
-                        }
-                        
-                        Divider()
-                        Stepper(value: $boLOwerBound, in: range, step: 1) {
-                            HStack {
-                                Image(systemName: "arrow.down.to.line")
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.blue, .pink)
-                                    .font(.title2)
-                                Text("Lower bound is \(boLOwerBound)%")
-                            }
-                        }
-                        Divider()
-                        Stepper(value: $boHighestBound, in: range, step: 1) {
-                            HStack {
-                                Image(systemName: "arrow.up.to.line")
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.purple, .pink)
-                                    .font(.title2)
-                                Text("Highest bound is \(boHighestBound)%")
-                            }
-                        }
-                        Divider()
-                        Stepper(value: $boMaxLevel, in: range, step: 1) {
-                            HStack {
-                                Image(systemName: "arrow.up.square")
-                                    .foregroundColor(.red)
-                                    .font(.title2)
-                                Text("Max level is \(boMaxLevel)%")
-                            }
-                        }
-                    }
-                    
-                    Text("bo_start = \(bo_start)\nbo_end = \(bo_end)\nbo_koef = \(bo_koef)\n---\nbo_barsCount = \(bo_values.count)")
-                    
                     HStack {
-                        Button("0. Import Image", action: {
+                        Button("Select Images...", action: {
                             photoPickerIsPresented = true
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
                         
-                        Button("Crop Image", action: {
-                         var croppeduiimage = cropImage(pickerResult[0], toRect: CGRect(x: 1000, y: 150, width: 400, height: 100), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
+                        Button("Analyse Images", action: {
                             
-                            pickerResult.append(croppeduiimage!)
+                            for item in pickerResult {
+                                
+                                var croppeduiimage = cropImage(item, toRect: CGRect(x: 1000, y: 150, width: 400, height: 100), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
+                                
+                                let sdate = detectTextWithVision(imageN: croppeduiimage!)
+                                
+                                print(sdate)
+                                
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "dd M yyyy"
+                                boDate = dateFormatter.date(from: "\(sdate[0]) 2021")!
+                                
+                                print(boDate)
+                                
+                                croppeduiimage = cropImage(item, toRect: CGRect(x: 2200, y: 300, width: 100, height: 450), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
+                                
+                                let bounds = detectTextWithVision(imageN: croppeduiimage!)
+                                
+                                print(bounds)
+                                
+                                boHighestBound = Int(bounds[0].replacingOccurrences(of: "%", with: "")) ?? 0
+                                boMaxLevel = boHighestBound
+                                boLOwerBound = Int(bounds[0].replacingOccurrences(of: "%", with: ""))! - (Int(bounds[0].replacingOccurrences(of: "%", with: ""))! - Int(bounds[1].replacingOccurrences(of: "%", with: ""))!)*3
+                                
+                                arrayimageData.append(bo_imageData(date: boDate, boLOwerBound: boLOwerBound, boHighestBound: boHighestBound, boMaxLevel: boMaxLevel))
+                            }
                             
-                           print( detectTextWithVision(imageN: croppeduiimage!))
-                            
-                             croppeduiimage = cropImage(pickerResult[0], toRect: CGRect(x: 2200, y: 300, width: 100, height: 450), viewWidth: pickerResult[0].size.width, viewHeight: pickerResult[0].size.height)
-                               
-                               pickerResult.append(croppeduiimage!)
-                            
-                           print( detectTextWithVision(imageN: croppeduiimage!))
+                            print(arrayimageData)
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
+                            .opacity(pickerResult.count == 0 ? 0 : 1)
                     }
                     
-                    TabView {
-                        Text("777")
-                            .opacity(pickerResult.count == 0 ? 1 : 0)
-                        ForEach(pickerResult, id: \.self) { uiImage in
-                            if colorScheme == .dark {
-                                ImageView(uiImage: uiImage)
-                                    .colorInvert()
-                            } else {
-                                ImageView(uiImage: uiImage)
+                    if pickerResult.count > 0 {
+                        TabView {
+                            ForEach(pickerResult, id: \.self) { uiImage in
+                                VStack {
+                                    GroupBoxView(boLOwerBound: 0, boHighestBound: 0, boMaxLevel: 0)
+                                    if colorScheme == .dark {
+                                        ImageView(uiImage: uiImage)
+                                            .colorInvert()
+                                    } else {
+                                        ImageView(uiImage: uiImage)
+                                    }
+                                    Text("Start = \(bo_start); End = \(bo_end); K = \(bo_koef)\nBars Count = \(bo_values.count)")
+                                }
                             }
                         }
-                        .padding()
+                        .tabViewStyle(.page)
+                        .indexViewStyle(.page(backgroundDisplayMode: .always))
+                        .frame(height: 515)
                     }
-                    .tabViewStyle(.page)
-                    .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    .frame(height: 200)
                     
                     HStack {
                         Button("1. get start", action: {
@@ -172,15 +153,6 @@ struct BloodOxygen: View {
                     
                     
                     Button("Save to File", action: {
-//                        var s: String = ""
-//                        var ss: String = ""
-//                        for item in bo_values {
-//                            ss = "bo,\(item.id),\(item.x),\(item.y), \(item.date),\(item.value)\n"
-//                            s = s + ss
-//                        }
-//                        saveToFile(fileName: "date.txt", fileContent: s)
-                        
-                        
                         let jsonEncoder = JSONEncoder()
                         jsonEncoder.outputFormatting = .prettyPrinted
                         do {
@@ -199,6 +171,40 @@ struct BloodOxygen: View {
             }
             .navigationTitle(LocalizedStringKey("BloodOxygen.Title"))
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing:
+                                    Button(action: {
+
+
+                bo_koef = 0
+                bo_start = 0
+                bo_end = 0
+                boLOwerBound = 75
+                boHighestBound = 100
+                boMaxLevel = 100
+                arrayRes = []
+                boDate = Date()
+                pickerResult = []
+                bo_values = []
+
+
+            }) {
+                Image(systemName: "arrow.clockwise.circle.fill")
+                    .font(Font.title2)
+                    .foregroundColor(.cyan)
+            })
+            
+//            .safeAreaInset(edge: .top) {
+//                HStack {
+//                    Image(systemName: "arrow.clockwise.circle.fill")
+//                    Spacer()
+//                    Image(systemName: "arrow.clockwise.circle.fill")
+//                }
+//                .overlay(Text("text"))
+//                .padding()
+//
+//                    .background(.ultraThinMaterial)
+//            }
+            
             .sheet(isPresented: $photoPickerIsPresented) {
                 PhotoPicker(pickerResult: $pickerResult,
                             isPresented: $photoPickerIsPresented)

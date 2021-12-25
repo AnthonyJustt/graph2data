@@ -14,8 +14,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
   
   func makeUIViewController(context: Context) -> some UIViewController {
     var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-    configuration.filter = .images // filter only to images
-    configuration.selectionLimit = 1 // 0 - ignore limit
+      configuration.filter = .images // filter only to images
+    configuration.selectionLimit = 0 // 0 - ignore limit
     
     let photoPickerViewController = PHPickerViewController(configuration: configuration)
     photoPickerViewController.delegate = context.coordinator

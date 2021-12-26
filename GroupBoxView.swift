@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GroupBoxView: View {
     
-    @State var boDate = Date()
+    @State var boDate: Date //= Date()
     
     @State var boLOwerBound: Int // = 75
     @State var boHighestBound: Int // = 100
@@ -67,7 +67,7 @@ struct GroupBoxView: View {
 
 struct GroupBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupBoxView(boLOwerBound: 75, boHighestBound: 100, boMaxLevel: 100)
+        GroupBoxView(boDate: Date(), boLOwerBound: 75, boHighestBound: 100, boMaxLevel: 100)
             .previewLayout(.sizeThatFits)
             .padding()
            // .preferredColorScheme(.dark)

@@ -18,7 +18,89 @@ struct healthItem: Codable, Identifiable {
     var value: String
 }
 
-struct bo_imageData: Codable, Identifiable {
+struct PhotoPickerModel: Identifiable {
+    var id: String
+    var photo: UIImage?
+    var date: Date
+    var boLOwerBound: Int
+    var boHighestBound: Int
+    var boMaxLevel: Int
+    var boKoef: Float
+    var boStart: Int
+    var boEnd: Int
+    var boValues: [healthItem]
+    
+    init(with photo: UIImage, boLOwerBound: Int, boHighestBound: Int, boMaxLevel: Int) {
+        id = UUID().uuidString
+        self.photo = photo
+        self.date = Date()
+        self.boLOwerBound = boLOwerBound
+        self.boHighestBound = boHighestBound
+        self.boMaxLevel = boMaxLevel
+        self.boKoef = 0.0
+        self.boStart = 0
+        self.boEnd = 0
+        self.boValues = []
+    }
+    
+    mutating func delete() {
+        photo = nil
+    }
+    
+    
+    /**
+     *A description field*
+     - important: This is
+     a way to get the
+     readers attention for
+     something.
+     
+     - returns: Nothing
+     
+     *Another description field*
+     - version: 1.0
+     */
+    mutating func changeFirstValues(newDate: Date, newboLOwerBound: Int, newboHighestBound: Int, newboMaxLevel: Int) {
+        date = newDate
+        boLOwerBound = newboLOwerBound
+        boHighestBound = newboHighestBound
+        boMaxLevel = newboMaxLevel
+    }
+    
+    mutating func changeSecondValues(newboKoef: Float, newboStart: Int, newboEnd: Int) {
+        boKoef = newboKoef
+        boStart = newboStart
+        boEnd = newboEnd
+    }
+    
+    mutating func changeThirdValues(newboValues: [healthItem]) {
+        boValues = newboValues
+    }
+}
+
+public class PickedMediaItems: ObservableObject {
+    @Published var items = [PhotoPickerModel]()
+    
+    func append(item: PhotoPickerModel) {
+        items.append(item)
+    }
+    
+    //    func changeValuse(index: Int, newText: String) {
+    //      //   for (index, _) in items.enumerated() {
+    //             items[index].text = newText
+    //      //   }
+    //    }
+    
+    func deleteAll() {
+        for (index, _) in items.enumerated() {
+            items[index].delete()
+        }
+        
+        items.removeAll()
+    }
+}
+
+struct bo_imageData: Identifiable {
     var id = UUID()
     var date = Date()
     var boLOwerBound: Int
@@ -75,7 +157,7 @@ func detectTextWithVision(imageN: UIImage) -> [String] {
         
         let text = observations.compactMap({$0.topCandidates(1).first!.string}) //.joined(separator: ", ")
         s = text
-       // print(text)
+        // print(text)
     }
     
     do {
@@ -226,9 +308,9 @@ func bo_getStartAndEndPoints(inputImage: UIImage) -> (Float, Int, Int) {
 
 func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ healthItem ] {
     
-//    var point1 = CGPoint(x: 495, y: 800)
-//        var uiColor1 = inputImage.getPixelColor(pos: point1)
-//        print(hexStringFromColor(color: uiColor1))
+    //    var point1 = CGPoint(x: 495, y: 800)
+    //        var uiColor1 = inputImage.getPixelColor(pos: point1)
+    //        print(hexStringFromColor(color: uiColor1))
     
     // #66B651
     
@@ -424,7 +506,7 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
     var jj = 0
     
     var xCount: Int = 0
-   // var xProgress: Int = 0
+    // var xProgress: Int = 0
     
     let UIColorToCompare = hexStringToUIColor(hex: "#FC315A")
     
@@ -447,7 +529,7 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
                 break
             }
         }
-      //  xProgress = i
+        //  xProgress = i
     }
     print("getPixelsColors0: count = \(xCount)")
 }

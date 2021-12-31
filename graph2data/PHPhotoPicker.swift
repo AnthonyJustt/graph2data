@@ -62,7 +62,6 @@ struct PhotoPicker: UIViewControllerRepresentable {
             }
         }
         
-        
         private func getPhoto(from itemProvider: NSItemProvider, isLivePhoto: Bool) {
             let objectType: NSItemProviderReading.Type = !isLivePhoto ? UIImage.self : PHLivePhoto.self
             
@@ -72,11 +71,15 @@ struct PhotoPicker: UIViewControllerRepresentable {
                         print(error.localizedDescription)
                     }
                     
-                        if let image = object as? UIImage {
-                            DispatchQueue.main.async {
-                                self.photoPicker.mediaItems.append(item: PhotoPickerModel(with: image, boLOwerBound: 0, boHighestBound: 0, boMaxLevel: 0))
-                            }
+                    if let image = object as? UIImage {
+                        DispatchQueue.main.async {
+                            
+                            let data = image.jpegData(compressionQuality: 1)
+                            let jpgUIImage: UIImage = UIImage(data: data!)!
+                            
+                            self.photoPicker.mediaItems.append(item: PhotoPickerModel(with: jpgUIImage, boLOwerBound: 0, boHighestBound: 0, boMaxLevel: 0))
                         }
+                    }
                 }
             }
             

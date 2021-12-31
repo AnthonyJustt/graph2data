@@ -10,11 +10,15 @@ import HealthKit
 
 struct HealthView: View {
     
-    var date: Date //= Date()
+    //   var date: Date //= Date()
     var type: String //= ""
-    var healthValues: [healthItem] //= [healthItem(x: 0, y: 0, date: "", value: "")]
+    //  var healthValues: [healthItem] //= [healthItem(x: 0, y: 0, date: "", value: "")]
+    
+    var mediaItems: PickedMediaItems
     
     @State private var showingNoHealthAlert = false
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var healthStore: HealthStore? = HealthStore()
     //    init() {
@@ -30,19 +34,19 @@ struct HealthView: View {
                     .bold()
                     .padding()
                 
-                    Image(systemName: "heart.text.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(Color.red, Color.clear)
-                        .font(.system(size: 60))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                .stroke(.red, lineWidth: 2)
-                        )
+                Image(systemName: "heart.text.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(Color.red, Color.clear)
+                    .font(.system(size: 60))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .stroke(.red, lineWidth: 2)
+                    )
             }
             
             Spacer()
             
-            Button("Authorize HealthKit Access", action: {
+            Button(action: {
                 print("Checking HealthKit authorization status...")
                 
                 if !HKHealthStore.isHealthDataAvailable() {
@@ -59,34 +63,87 @@ struct HealthView: View {
                 healthStore?.getRequestStatusForAuthorization() { success in
                     
                 }
+                
+            }, label: {
+                HStack {
+                    Image(systemName: "info.circle.fill")
+                        .foregroundColor(.secondary)
+                        .font(.title2)
+                    Spacer()
+                    Text("Authorize HealthKit Access")
+                    Spacer()
+                }
             })
                 .buttonStyle(customButton(fillColor: .gray))
                 .padding()
             
-            Button("Add Heart Rate Data", action: {
-                
-            })
-                .buttonStyle(customButton(fillColor: Color("AccentColor")))
+            Divider()
                 .padding()
             
-            Button("Add Blood Oxygen Data", action: {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                let dday = dateFormatter.string(from: date)
-                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                for item in healthValues {
-                    dateFormatter.dateFormat = "HH:mm:ss"
-                    let inDate = dateFormatter.date(from: item.date)!
-                    dateFormatter.dateFormat = "h:mm:ss a"
-                    let outTime = dateFormatter.string(from: inDate)
-                    
-                    didAddNewData(with: Double(item.value)! / Double(100), datetime: "\(dday)T\(outTime)")
+            Button(action: {
+                //
+            }, label: {
+                HStack {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.secondary)
+                        .font(.title2)
+                    Spacer()
+                    Text("Add \(type) Data")
+                    Spacer()
+                }
+            })
+                .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                .opacity(type == "Heart Rate" ? 1 : 0)
+                .padding()
+            
+            Button(action: {
+                if mediaItems.items.count > 0 {
+                    for item in mediaItems.items {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let dday = dateFormatter.string(from: item.date)
+                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                        for value in item.boValues {
+                            dateFormatter.dateFormat = "HH:mm:ss"
+                            let inDate = dateFormatter.date(from: value.date)!
+                            dateFormatter.dateFormat = "h:mm:ss a"
+                            let outTime = dateFormatter.string(from: inDate)
+                            
+                            didAddNewData(with: Double(value.value)! / Double(100), datetime: "\(dday)T\(outTime)")
+                        }
+                    }
+                }
+            }, label: {
+                HStack {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.secondary)
+                        .font(.title2)
+                    Spacer()
+                    Text("Add \(type) Data")
+                    Spacer()
                 }
             })
                 .buttonStyle(customButton(fillColor: .cyan))
+                .opacity(type == "Blood Oxygen" ? 1 : 0)
                 .padding()
-
+            
+            Spacer()
+            
         }
+        .overlay(
+            ZStack {
+                blurView(cornerRadius: 25)
+                    .frame(width: 50, height: 50)
+                    .shadow(radius: 3)
+                Image(systemName: "xmark")
+            }
+                .padding(.top, 15)
+                .padding(.trailing, 15)
+                .onTapGesture {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            , alignment: .topTrailing
+        )
         .alert(isPresented: $showingNoHealthAlert) {
             Alert(title: Text("Health Data Unavailable"), message: Text("Unable to access health data on this device. Make sure you are using device with HealthKit capabilities."), dismissButton: .default(Text("OK")))
         }
@@ -145,6 +202,6 @@ struct HealthView: View {
 
 struct HealthView_Previews: PreviewProvider {
     static var previews: some View {
-        HealthView(date: Date(), type: "_type", healthValues: [healthItem(x: 0, y: 0, date: "", value: "0")])
+        HealthView(type: "_type", mediaItems: PickedMediaItems())
     }
 }

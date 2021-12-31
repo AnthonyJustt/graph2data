@@ -235,7 +235,7 @@ struct HeartRate: View {
             .navigationTitle(LocalizedStringKey("HeartRate.Title"))
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showingHealthView) {
-                HealthView(date: hrDate, type: "Heart Rate", healthValues: [])
+                HealthView(type: "Heart Rate", mediaItems: PickedMediaItems())
             }
         }
     }

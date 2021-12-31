@@ -10,6 +10,27 @@ import Vision
 
 // MARK: Common Methods
 
+struct blurView: UIViewRepresentable {
+    
+    var cornerRadius: CGFloat = 0
+    
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        UIVisualEffectView()
+    }
+    
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.layer.cornerRadius = cornerRadius
+        uiView.clipsToBounds = true
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        uiView.effect = blurEffect
+        
+        //        uiView.translatesAutoresizingMaskIntoConstraints = false
+        //        uiView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        //        uiView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    }
+}
+
 struct healthItem: Codable, Identifiable {
     var id = UUID()
     var x: CGFloat
@@ -75,6 +96,16 @@ struct PhotoPickerModel: Identifiable {
     
     mutating func changeThirdValues(newboValues: [healthItem]) {
         boValues = newboValues
+    }
+    
+    mutating func changeFourthValues(newarrayRes: [String]) {
+        //    arrayRes = newarrayRes
+        
+        //   func changeArray() {
+        for (index, _) in boValues.enumerated() {
+            boValues[index].value = newarrayRes[index]
+        }
+        //  }
     }
 }
 

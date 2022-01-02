@@ -32,8 +32,8 @@ struct BloodOxygen: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                ZStack {
+            ZStack {
+                ScrollView {
                     VStack {
                         
                         Image(systemName: "lungs")
@@ -151,12 +151,12 @@ struct BloodOxygen: View {
                             item = DispatchWorkItem {
                                 showingModal = true
                                 if item.isCancelled != true {
-                            for (index, item) in mediaItems.items.enumerated() {
-                                mediaItems.items[index].changeFourthValues(newarrayRes: bo_scanBars(inputImage: item.photo!, bo_values: item.boValues, boLOwerBound: item.boLOwerBound, boHighestBound: item.boHighestBound))
-                            }
-                        }
+                                    for (index, item) in mediaItems.items.enumerated() {
+                                        mediaItems.items[index].changeFourthValues(newarrayRes: bo_scanBars(inputImage: item.photo!, bo_values: item.boValues, boLOwerBound: item.boLOwerBound, boHighestBound: item.boHighestBound))
+                                    }
+                                }
                                 showingModal = false
-                               }
+                            }
                             queue.async(execute: item)
                         })
                             .buttonStyle(customButton(fillColor: .cyan))
@@ -207,61 +207,59 @@ struct BloodOxygen: View {
                         })
                             .padding()
                     }
-                    .blur(radius: $showingModal.wrappedValue ? 2 : 0, opaque: false)
+                    
                     .padding()
                     
-                    if $showingModal.wrappedValue {
-                        ZStack {
-                            Color("ColorTransparentBlack")
-                                .edgesIgnoringSafeArea(.all)
-                            ModalView(showingModal: $showingModal)
+                    
+                }
+                .blur(radius: $showingModal.wrappedValue ? 2 : 0, opaque: false)
+                .navigationTitle(LocalizedStringKey("BloodOxygen.Title"))
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(trailing:
+                                        Button(action: {
+                    mediaItems.items = []
+                    bo_koef = 0
+                    bo_start = 0
+                    bo_end = 0
+                    boDate = Date()
+                }) {
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .font(Font.title2)
+                        .foregroundColor(.cyan)
+                }
+                                        .opacity(showingModal ? 0 : 1)
+                )
+                ////   .safeAreaInset(edge: .top) { HStack { Image(systemName: "arrow.clockwise.circle.fill")
+                ////  Spacer()
+                ////Image(systemName: "arrow.clockwise.circle.fill")}
+                //// .overlay(Text("text"))
+                //// .padding()
+                ////  .background(.ultraThinMaterial)}
+                .sheet(isPresented: $photoPickerIsPresented, content: {
+                    PhotoPicker(mediaItems: mediaItems)
+                    { didSelectItem in
+                        if didSelectItem == true {
+                            print("true")
+                        } else
+                        {
+                            print("false")
                         }
+                        photoPickerIsPresented = false
+                    }
+                    .ignoresSafeArea()
+                })
+                
+                .sheet(isPresented: $showingHealthView) {
+                    HealthView(type: "Blood Oxygen", mediaItems: mediaItems)
+                }
+                
+                if $showingModal.wrappedValue {
+                    ZStack {
+                        Color("ColorTransparentBlack")
+                            .edgesIgnoringSafeArea(.all)
+                        ModalView(showingModal: $showingModal)
                     }
                 }
-            }
-            .navigationTitle(LocalizedStringKey("BloodOxygen.Title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                mediaItems.items = []
-                bo_koef = 0
-                bo_start = 0
-                bo_end = 0
-                boDate = Date()
-            }) {
-                Image(systemName: "arrow.clockwise.circle.fill")
-                    .font(Font.title2)
-                    .foregroundColor(.cyan)
-            })
-            
-            //            .safeAreaInset(edge: .top) {
-            //                HStack {
-            //                    Image(systemName: "arrow.clockwise.circle.fill")
-            //                    Spacer()
-            //                    Image(systemName: "arrow.clockwise.circle.fill")
-            //                }
-            //                .overlay(Text("text"))
-            //                .padding()
-            //
-            //                    .background(.ultraThinMaterial)
-            //            }
-            
-            .sheet(isPresented: $photoPickerIsPresented, content: {
-                PhotoPicker(mediaItems: mediaItems)
-                { didSelectItem in
-                    if didSelectItem == true {
-                        print("true")
-                    } else
-                    {
-                        print("false")
-                    }
-                    photoPickerIsPresented = false
-                }
-                .ignoresSafeArea()
-            })
-            
-            .sheet(isPresented: $showingHealthView) {
-                HealthView(type: "Blood Oxygen", mediaItems: mediaItems)
             }
         }
     }

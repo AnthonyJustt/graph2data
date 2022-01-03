@@ -33,7 +33,7 @@ struct ModalView: View {
                 .multilineTextAlignment(.center)
                 .layoutPriority(1)
             
-            ProgressView("Image % of %", value: Double(2), total: Double(10))
+            ProgressView("Image % of \(GlobalVars.boImagesCount)", value: Double(2), total: Double(10))
                 .accentColor(Color("AccentColor"))
                 .padding()
             

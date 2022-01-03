@@ -50,11 +50,12 @@ struct BloodOxygen: View {
                                 .buttonStyle(customButton(fillColor: .cyan))
                             
                             Button("Analyse Images", action: {
-                                
-                                
-                                
                                 item = DispatchWorkItem {
                                     showingModal = true
+                                    let date = Date()
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.dateFormat = "yyyy"
+                                    let yearString = dateFormatter.string(from: date)
                                     if item.isCancelled != true {
                                         for (index, item) in mediaItems.items.enumerated() {
                                             
@@ -66,7 +67,7 @@ struct BloodOxygen: View {
                                             
                                             let dateFormatter = DateFormatter()
                                             dateFormatter.dateFormat = "dd M yyyy"
-                                            boDate = dateFormatter.date(from: "\(sdate[0]) 2021")!
+                                            boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)")!
                                             
                                             print(boDate)
                                             
@@ -94,9 +95,9 @@ struct BloodOxygen: View {
                         
                         if mediaItems.items.count > 0 {
                             TabView {
-                                ForEach(mediaItems.items, id: \.id) { item in
+                                ForEach($mediaItems.items, id: \.id) { $item in
                                     VStack {
-                                        GroupBoxView(boDate: item.date, boLOwerBound: item.boLOwerBound, boHighestBound: item.boHighestBound, boMaxLevel: item.boMaxLevel)
+                                        GroupBoxViewBO(boDate: $item.date, boLOwerBound: $item.boLOwerBound, boHighestBound: $item.boHighestBound, boMaxLevel: $item.boMaxLevel)
                                         if colorScheme == .dark {
                                             ImageView(uiImage: item.photo ?? UIImage())
                                                 .colorInvert()
@@ -190,6 +191,8 @@ struct BloodOxygen: View {
                         
                         Button("Save to File", action: {
                             withAnimation(Animation.easeInOut(duration: 0.25)){
+                                GlobalVars.boImagesCount = mediaItems.items.count
+                                print(GlobalVars.boImagesCount)
                                 showingModal = true
                             }
                             

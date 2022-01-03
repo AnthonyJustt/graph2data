@@ -10,6 +10,10 @@ import Vision
 
 // MARK: Common Methods
 
+struct GlobalVars {
+    static var boImagesCount: Int = 0
+}
+
 struct blurView: UIViewRepresentable {
     
     var cornerRadius: CGFloat = 0
@@ -40,27 +44,45 @@ struct healthItem: Codable, Identifiable {
 }
 
 struct PhotoPickerModel: Identifiable {
+    // common values
     var id: String
     var photo: UIImage?
     var date: Date
+    
+    //blood oxygen values
     var boLOwerBound: Int
     var boHighestBound: Int
     var boMaxLevel: Int
     var boKoef: Float
     var boStart: Int
     var boEnd: Int
+    
+    // heart rate values
+    var hrRateMin: Int
+    var hrRateMax: Int
+    var hrRateStart: Int
+    var hrRateEnd: Int
+    
+    // common values
     var boValues: [healthItem]
     
-    init(with photo: UIImage, boLOwerBound: Int, boHighestBound: Int, boMaxLevel: Int) {
+    init(photo: UIImage) {
         id = UUID().uuidString
         self.photo = photo
         self.date = Date()
-        self.boLOwerBound = boLOwerBound
-        self.boHighestBound = boHighestBound
-        self.boMaxLevel = boMaxLevel
+        
+        self.boLOwerBound = 0
+        self.boHighestBound = 0
+        self.boMaxLevel = 0
         self.boKoef = 0.0
         self.boStart = 0
         self.boEnd = 0
+        
+        self.hrRateMin = 0
+        self.hrRateMax = 0
+        self.hrRateStart = 0
+        self.hrRateEnd = 0
+        
         self.boValues = []
     }
     

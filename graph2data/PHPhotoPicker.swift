@@ -77,7 +77,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                             let data = image.jpegData(compressionQuality: 1)
                             let jpgUIImage: UIImage = UIImage(data: data!)!
                             
-                            self.photoPicker.mediaItems.append(item: PhotoPickerModel(with: jpgUIImage, boLOwerBound: 0, boHighestBound: 0, boMaxLevel: 0))
+                            self.photoPicker.mediaItems.append(item: PhotoPickerModel(photo: jpgUIImage))
                         }
                     }
                 }

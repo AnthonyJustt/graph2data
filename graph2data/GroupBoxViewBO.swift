@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct GroupBoxView: View {
+struct GroupBoxViewBO: View {
     
-    @State var boDate: Date //= Date()
+    @Binding var boDate: Date //= Date()
     
-    @State var boLOwerBound: Int // = 75
-    @State var boHighestBound: Int // = 100
-    @State var boMaxLevel: Int // = 100
+    @Binding var boLOwerBound: Int // = 75
+    @Binding var boHighestBound: Int // = 100
+    @Binding var boMaxLevel: Int // = 100
     let range = 0...100
     
     var body: some View {
@@ -66,10 +66,15 @@ struct GroupBoxView: View {
 }
 
 struct GroupBoxView_Previews: PreviewProvider {
+    @State static var boDate = Date()
+    @State static var boLOwerBound = 75
+    @State static var boHighestBound = 100
+    @State static var boMaxLevel = 100
     static var previews: some View {
-        GroupBoxView(boDate: Date(), boLOwerBound: 75, boHighestBound: 100, boMaxLevel: 100)
+        GroupBoxViewBO(boDate: $boDate, boLOwerBound: $boLOwerBound, boHighestBound: $boHighestBound, boMaxLevel: $boMaxLevel)
             .previewLayout(.sizeThatFits)
             .padding()
-           // .preferredColorScheme(.dark)
+//                    .preferredColorScheme(.dark)
+        // .environment(\.locale, .init(identifier: "ru"))
     }
 }

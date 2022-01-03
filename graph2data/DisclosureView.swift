@@ -59,7 +59,7 @@ struct DisclosureView_Previews: PreviewProvider {
                 y: 800,
                 date: "08:14:00",
                 value: "123"
-            )], DisclosureGroupName: "December 14, 2021")
+            )], DisclosureGroupName: "January 14, 2022")
             .previewLayout(.sizeThatFits)
             .padding()
         

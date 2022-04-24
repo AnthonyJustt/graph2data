@@ -11,8 +11,10 @@
 
 habr mobile is a client for [habr.com](https://habr.com) written with SwiftUI. Habr is a massive blog platform with multimillion and multicultural audience where people post interesting content on different topics, discuss trends and much more. With habr mobile app, you can take all that goodness with you on the go with finger-tip access to the latest news and posts. 
 
-Main Screen & Post View
-https://user-images.githubusercontent.com/83954616/164985655-2e055e9a-d277-4e76-9a8e-f96c0b98fe3f.mp4
+App in action
+<div align="center">
+   <img src="screens/app.gif" alt="Main Screen" height="500" />
+</div>
 
 ## Built With
 

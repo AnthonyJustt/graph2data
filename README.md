@@ -47,14 +47,9 @@ Simply download project with Code → Download ZIP, unpack it and run graph2data
 - [x] 222
 - [ ] 333
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## License
 
 Distributed under the MIT License.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ---
 

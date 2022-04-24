@@ -74,7 +74,7 @@ struct GroupBoxView_Previews: PreviewProvider {
         GroupBoxViewBO(boDate: $boDate, boLOwerBound: $boLOwerBound, boHighestBound: $boHighestBound, boMaxLevel: $boMaxLevel)
             .previewLayout(.sizeThatFits)
             .padding()
-//                    .preferredColorScheme(.dark)
+        //                    .preferredColorScheme(.dark)
         // .environment(\.locale, .init(identifier: "ru"))
     }
 }

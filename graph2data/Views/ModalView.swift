@@ -11,6 +11,8 @@ struct ModalView: View {
     @State  var spinCircle = false
     @Binding var showingModal: Bool
     
+    @EnvironmentObject var model: Model
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
@@ -36,6 +38,18 @@ struct ModalView: View {
             ProgressView("Image % of \(GlobalVars.boImagesCount)", value: Double(2), total: Double(10))
                 .accentColor(Color("AccentColor"))
                 .padding()
+            
+            Text("\(model.boCurrentProgress)")
+                .onChange(of: model.boCurrentProgress) { newValue in
+                    print(newValue)
+                }
+            
+            Text("\(Model.shared.boCurrentProgress)")
+                .onChange(of: Model.shared.boCurrentProgress) { newValue in
+                    DispatchQueue.main.async {
+                    print("new value is \(newValue)")
+                    }
+                }
             
             ProgressView("Current progress", value: Double(2), total: Double(10))
                 .accentColor(Color("AccentColor"))
@@ -77,6 +91,7 @@ struct ModalView_Previews: PreviewProvider {
         ModalView(showingModal: $sM)
             .previewLayout(.sizeThatFits)
             .padding()
+            .environmentObject(Model())
 //                    .preferredColorScheme(.dark)
         // .environment(\.locale, .init(identifier: "ru"))
     }

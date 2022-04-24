@@ -40,7 +40,7 @@ struct healthItem: Codable, Identifiable {
     var x: CGFloat
     var y: CGFloat
     var date: String
-    var value: String
+    var value: Int
 }
 
 struct PhotoPickerModel: Identifiable {
@@ -62,9 +62,21 @@ struct PhotoPickerModel: Identifiable {
     var hrRateMax: Int
     var hrRateStart: Int
     var hrRateEnd: Int
+    var hrXStart: Int
+    var hrYStart: Int
+    var hrXEnd: Int
+    var hrYEnd: Int
     
     // common values
-    var boValues: [healthItem]
+    var hiValues: [healthItem]
+    var hiMin: Int {
+        let boMinHI = hiValues.min { $0.value < $1.value }
+        return boMinHI?.value ?? 0
+    }
+    var hiMax: Int {
+        let boMaxHI = hiValues.max { $0.value < $1.value }
+        return boMaxHI?.value ?? 0
+    }
     
     init(photo: UIImage) {
         id = UUID().uuidString
@@ -82,8 +94,12 @@ struct PhotoPickerModel: Identifiable {
         self.hrRateMax = 0
         self.hrRateStart = 0
         self.hrRateEnd = 0
+        self.hrXStart = 105
+        self.hrYStart = 866
+        self.hrXEnd = 2247
+        self.hrYEnd = 671
         
-        self.boValues = []
+        self.hiValues = []
     }
     
     mutating func delete() {
@@ -103,7 +119,11 @@ struct PhotoPickerModel: Identifiable {
      *Another description field*
      - version: 1.0
      */
+
     mutating func changeFirstValues(newDate: Date, newboLOwerBound: Int, newboHighestBound: Int, newboMaxLevel: Int) {
+        
+        // нужно разделить на две и переименовать: первая - общая - изменение даты, вторая - только для bo - изменение значений
+        
         date = newDate
         boLOwerBound = newboLOwerBound
         boHighestBound = newboHighestBound
@@ -116,18 +136,28 @@ struct PhotoPickerModel: Identifiable {
         boEnd = newboEnd
     }
     
-    mutating func changeThirdValues(newboValues: [healthItem]) {
-        boValues = newboValues
+    mutating func changeThirdValues(newhiValues: [healthItem]) {
+        hiValues = newhiValues
     }
     
     mutating func changeFourthValues(newarrayRes: [String]) {
         //    arrayRes = newarrayRes
         
         //   func changeArray() {
-        for (index, _) in boValues.enumerated() {
-            boValues[index].value = newarrayRes[index]
+        for (index, _) in hiValues.enumerated() {
+            hiValues[index].value = Int(newarrayRes[index]) ?? -1
         }
         //  }
+    }
+    
+    mutating func changeFifthValues(newhrXStart: Int, newhrYStart: Int) {
+        hrXStart = newhrXStart
+        hrYStart = newhrYStart
+    }
+    
+    mutating func changeSixthValues(newhrXEnd: Int, newhrYEnd: Int) {
+        hrXEnd = newhrXEnd
+        hrYEnd = newhrYEnd
     }
 }
 
@@ -388,11 +418,17 @@ func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ 
     //
     
     //
+    
     for i in 0...Int(inputImage.size.width /* ?? 0 */) {
         point = CGPoint(x: i, y: bo_minBar)
         uiColor = inputImage.getPixelColor(pos: point) //?? .black
         
-        
+        DispatchQueue.main.async {
+//                 GlobalVariableClass.shared.itemObjects = results
+      
+            Model.shared.boCurrentProgress = i
+    //    print(Model.shared.boCurrentProgress)
+              }
         
         sss = hexStringFromColor(color: uiColor)
         ssss = String(sss.prefix(upTo: sss.index(sss.startIndex, offsetBy: 4)))
@@ -408,7 +444,7 @@ func bo_getBloodOxygen(inputImage: UIImage, bo_start: Int, bo_koef: Float) -> [ 
                     x: point.x,
                     y: point.y,
                     date: bo_minutesToTime(mins: Int(Float(Int(point.x) - bo_start) / bo_koef)),
-                    value: ""))
+                    value: -1))
                 
                 x_prev = Int(point.x)
             }
@@ -497,22 +533,25 @@ func bo_scanBars(inputImage: UIImage, bo_values: [healthItem], boLOwerBound: Int
 
 // MARK: HeartRate Methods
 
-func hr_getStartPoint() -> (Int, Int) {
+func hr_getStartPoint(inputImage: UIImage) -> (Int, Int) {
     // Поиск начальной точки графика
     
+    print("hr_getStartPoint was started")
+    print("image size: \(inputImage.size.width) x \(inputImage.size.height)")
+    
     var point = CGPoint(x: 0, y: 0)
-    var uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-    var colorCode = hexStringFromColor(color: uiColor)
+    var uiColor = inputImage.getPixelColor(pos: point) //?? .black
+    let UIColorToCompare = hexStringToUIColor(hex: "#FC315A")
+
     var xStart = 0
     var yStart = 0
     
-outerLoop: for i in 104...Int(UIImage(named: "IMG")?.size.width ?? 0) {
+outerLoop: for i in 104...Int(inputImage.size.width ) {
     print(i)
-    for j in 0...Int(UIImage(named: "IMG")?.size.height ?? 0) {
+    for j in 0...Int(inputImage.size.height ) {
         point = CGPoint(x: i, y: j)
-        uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-        colorCode = hexStringFromColor(color: uiColor)
-        if colorCode == "#FC315A" {
+        uiColor = inputImage.getPixelColor(pos: point)
+        if uiColor == UIColorToCompare {
             xStart = i
             yStart = j
             print("xStart = \(i) yStart = \(j)")
@@ -520,25 +559,29 @@ outerLoop: for i in 104...Int(UIImage(named: "IMG")?.size.width ?? 0) {
         }
     }
 }
+    print("hr_getStartPoint was finished")
+    
     return (xStart, yStart)
 }
 
-func hr_getEndPoint() -> (Int, Int) {
+func hr_getEndPoint(inputImage: UIImage) -> (Int, Int) {
     // Поиск конечной точки графика
     
+    print("hr_getEndPoint was started")
+    
     var point = CGPoint(x: 0, y: 0)
-    var uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-    var colorCode = hexStringFromColor(color: uiColor)
+    var uiColor = inputImage.getPixelColor(pos: point) //?? .black
+    let UIColorToCompare = hexStringToUIColor(hex: "#FC315A")
+    
     var xEnd = 0
     var yEnd = 0
     
-outerLoop: for i in stride(from: Int(UIImage(named: "IMG")?.size.width ?? 0) - 188, to: 2240, by: -1) {
+outerLoop: for i in stride(from: Int(inputImage.size.width) - 188, to: 2240, by: -1) {
     print(i)
-    for j in 0...Int(UIImage(named: "IMG")?.size.height ?? 0) {
+    for j in 0...Int(inputImage.size.height) {
         point = CGPoint(x: i, y: j)
-        uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-        colorCode = hexStringFromColor(color: uiColor)
-        if colorCode == "#FC315A" {
+        uiColor = inputImage.getPixelColor(pos: point)
+        if uiColor == UIColorToCompare {
             xEnd = i
             yEnd = j
             print("xEnd = \(i) yEnd = \(j)")
@@ -546,14 +589,18 @@ outerLoop: for i in stride(from: Int(UIImage(named: "IMG")?.size.width ?? 0) - 1
         }
     }
 }
+    print("hr_getEndPoint was finished")
+
     return (xEnd, yEnd)
 }
 
-func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
+func hr_getPixelsColors0(inputImage: UIImage, xStart: Int, yStart: Int, xEnd: Int) {//}, yEnd: Int) {
+    
+    print("hr_getPixelsColors0 was started")
     
     var point = CGPoint(x: 0, y: 0)
     //  var uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-    var uiColor = UIColor.black
+    var uiColor = inputImage.getPixelColor(pos: point)
     // var colorCode = self.hexStringFromColor(color: uiColor)
     var yChange = yStart
     var jj = 0
@@ -563,19 +610,14 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
     
     let UIColorToCompare = hexStringToUIColor(hex: "#FC315A")
     
-    print("getPixelsColors0 was started")
-    
-    for i in xStart...xEnd {
+    for i in xStart...xStart + 50 {//xEnd {
         // print(i)
         for j in yChange-20...yChange+20 {
             jj = j
             //print(j)
             point = CGPoint(x: i, y: j)
-            uiColor = UIImage(named: "IMG")?.getPixelColor(pos: point) ?? .black
-            //      colorCode = self.hexStringFromColor(color: uiColor)
-            //       if colorCode == "#FC315A" {
+            uiColor = inputImage.getPixelColor(pos: point)
             if uiColor == UIColorToCompare {
-                //       print("x: \(point.x), y: \(point.y) - \(colorCode)")
                 print("x: \(point.x), y: \(point.y)")
                 yChange = jj
                 xCount += 1
@@ -585,6 +627,8 @@ func hr_getPixelsColors0(xStart: Int, yStart: Int, xEnd: Int, yEnd: Int) {
         //  xProgress = i
     }
     print("getPixelsColors0: count = \(xCount)")
+    
+    print("hr_getPixelsColors0 was finished")
 }
 
 //    private func hr_getPixelsColors1(xStart: Int) {

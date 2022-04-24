@@ -22,6 +22,9 @@
 		49555A9D2714777800A78541 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49555A9C2714777800A78541 /* HealthStore.swift */; };
 		4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22127216C9E00AED7E8 /* Localizable.strings */; };
 		4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4962B22427216CAA00AED7E8 /* Localizable.strings */; };
+		497F55EE28157992009370E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 497F55ED28157992009370E1 /* Launch Screen.storyboard */; };
+		49843E8427AF2B9C005A580F /* CombineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49843E8327AF2B9C005A580F /* CombineModel.swift */; };
+		498B877027848F3E000493B2 /* ExportButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B876F27848F3E000493B2 /* ExportButtonView.swift */; };
 		49A77F912783852F0086567A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A77F902783852F0086567A /* HeaderView.swift */; };
 		49A77F9327839C120086567A /* GroupBoxViewHR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A77F9227839C120086567A /* GroupBoxViewHR.swift */; };
 		49A9B0AC275D5C6C0067148C /* saveToLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9B0AB275D5C6B0067148C /* saveToLocal.swift */; };
@@ -53,16 +56,19 @@
 		494273C526F64695004535DF /* graph2data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = graph2data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494C4AA126FFD36D0023D1B3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		494DF2542777C2EA00599797 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
-		49555A8D271475CE00A78541 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = graph2data/DisclosureView.swift; sourceTree = SOURCE_ROOT; };
+		49555A8D271475CE00A78541 /* DisclosureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisclosureView.swift; path = graph2data/Views/DisclosureView.swift; sourceTree = SOURCE_ROOT; };
 		49555A8E271475CE00A78541 /* graph2data.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = graph2data.entitlements; path = graph2data/graph2data.entitlements; sourceTree = SOURCE_ROOT; };
-		49555A8F271475CE00A78541 /* HeartRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartRate.swift; path = graph2data/HeartRate.swift; sourceTree = SOURCE_ROOT; };
+		49555A8F271475CE00A78541 /* HeartRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeartRate.swift; path = "graph2data/App View/HeartRate.swift"; sourceTree = SOURCE_ROOT; };
 		49555A90271475CE00A78541 /* graph2dataApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = graph2dataApp.swift; path = graph2data/graph2dataApp.swift; sourceTree = SOURCE_ROOT; };
-		49555A91271475CE00A78541 /* HealthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthView.swift; path = graph2data/HealthView.swift; sourceTree = SOURCE_ROOT; };
+		49555A91271475CE00A78541 /* HealthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthView.swift; path = "graph2data/App View/HealthView.swift"; sourceTree = SOURCE_ROOT; };
 		49555A97271475F900A78541 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = graph2data/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		49555A9A2714760600A78541 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		49555A9C2714777800A78541 /* HealthStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthStore.swift; path = graph2data/HealthKit/HealthStore.swift; sourceTree = SOURCE_ROOT; };
 		4962B22227216C9E00AED7E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		4962B22527216CAA00AED7E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		497F55ED28157992009370E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		49843E8327AF2B9C005A580F /* CombineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineModel.swift; sourceTree = "<group>"; };
+		498B876F27848F3E000493B2 /* ExportButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportButtonView.swift; sourceTree = "<group>"; };
 		49A77F902783852F0086567A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		49A77F9227839C120086567A /* GroupBoxViewHR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxViewHR.swift; sourceTree = "<group>"; };
 		49A9B0AB275D5C6B0067148C /* saveToLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveToLocal.swift; sourceTree = "<group>"; };
@@ -103,6 +109,51 @@
 			path = HealthKit;
 			sourceTree = "<group>";
 		};
+		493CABF4278B0DC000272638 /* App View */ = {
+			isa = PBXGroup;
+			children = (
+				49CD6B2D2754BCA0001EDB2D /* MainView.swift */,
+				49555A8F271475CE00A78541 /* HeartRate.swift */,
+				49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */,
+				49555A91271475CE00A78541 /* HealthView.swift */,
+				49843E8327AF2B9C005A580F /* CombineModel.swift */,
+			);
+			path = "App View";
+			sourceTree = "<group>";
+		};
+		493CABF5278B0DF300272638 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49A77F902783852F0086567A /* HeaderView.swift */,
+				49D7EF2527760FCA0063A681 /* GroupBoxViewBO.swift */,
+				49A77F9227839C120086567A /* GroupBoxViewHR.swift */,
+				49555A8D271475CE00A78541 /* DisclosureView.swift */,
+				498B876F27848F3E000493B2 /* ExportButtonView.swift */,
+				493841B3277F611100B3D066 /* ModalView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		493CABF6278B0E6E00272638 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				491F8205275A0C7D003B5195 /* methods.swift */,
+				49A9B0AB275D5C6B0067148C /* saveToLocal.swift */,
+				49F309ED275F4B0100763CA0 /* CodableBundleExtension.swift */,
+				491F8203275A03DD003B5195 /* buttonStyle.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		493CABF7278B0EA800272638 /* Work w Pics */ = {
+			isa = PBXGroup;
+			children = (
+				492B9F00275EA7FE008484C1 /* PHPhotoPicker.swift */,
+				494DF2542777C2EA00599797 /* PinchToZoom.swift */,
+			);
+			path = "Work w Pics";
+			sourceTree = "<group>";
+		};
 		494273BC26F64695004535DF = {
 			isa = PBXGroup;
 			children = (
@@ -126,26 +177,16 @@
 		494273C726F64695004535DF /* graph2data */ = {
 			isa = PBXGroup;
 			children = (
-				49D7EF2527760FCA0063A681 /* GroupBoxViewBO.swift */,
-				49A77F9227839C120086567A /* GroupBoxViewHR.swift */,
 				49555A90271475CE00A78541 /* graph2dataApp.swift */,
-				491F8205275A0C7D003B5195 /* methods.swift */,
+				493CABF4278B0DC000272638 /* App View */,
 				491F81FE2759F966003B5195 /* HealthKit */,
-				49555A8F271475CE00A78541 /* HeartRate.swift */,
-				49555A8D271475CE00A78541 /* DisclosureView.swift */,
-				49555A8E271475CE00A78541 /* graph2data.entitlements */,
+				493CABF5278B0DF300272638 /* Views */,
+				493CABF6278B0E6E00272638 /* Utilities */,
+				493CABF7278B0EA800272638 /* Work w Pics */,
 				49555A992714760600A78541 /* Preview Content */,
-				49555A91271475CE00A78541 /* HealthView.swift */,
 				49555A97271475F900A78541 /* Assets.xcassets */,
-				49CD6B2D2754BCA0001EDB2D /* MainView.swift */,
-				49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */,
-				491F8203275A03DD003B5195 /* buttonStyle.swift */,
-				49A9B0AB275D5C6B0067148C /* saveToLocal.swift */,
-				492B9F00275EA7FE008484C1 /* PHPhotoPicker.swift */,
-				49F309ED275F4B0100763CA0 /* CodableBundleExtension.swift */,
-				494DF2542777C2EA00599797 /* PinchToZoom.swift */,
-				493841B3277F611100B3D066 /* ModalView.swift */,
-				49A77F902783852F0086567A /* HeaderView.swift */,
+				49555A8E271475CE00A78541 /* graph2data.entitlements */,
+				497F55ED28157992009370E1 /* Launch Screen.storyboard */,
 			);
 			path = graph2data;
 			sourceTree = "<group>";
@@ -286,6 +327,7 @@
 				49555A9B2714760600A78541 /* Preview Assets.xcassets in Resources */,
 				4962B22627216CAA00AED7E8 /* Localizable.strings in Resources */,
 				4962B22327216C9E00AED7E8 /* Localizable.strings in Resources */,
+				497F55EE28157992009370E1 /* Launch Screen.storyboard in Resources */,
 				49555A98271475F900A78541 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +364,8 @@
 				49F309EE275F4B0100763CA0 /* CodableBundleExtension.swift in Sources */,
 				49A77F9327839C120086567A /* GroupBoxViewHR.swift in Sources */,
 				49555A96271475CE00A78541 /* HealthView.swift in Sources */,
+				498B877027848F3E000493B2 /* ExportButtonView.swift in Sources */,
+				49843E8427AF2B9C005A580F /* CombineModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,12 +540,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = graph2data/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = graph2data;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app would like to write simulated heart data to HealthKit WRITE";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app would like to read simulated heart rate data from HealthKit READ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "graph2data would like to read heart rate and blood oxygen data from HealthKit";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "graph2data would like to write heart rate and blood oxygen data gathered from images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,12 +575,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = graph2data/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = graph2data;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app would like to write simulated heart data to HealthKit WRITE";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app would like to read simulated heart rate data from HealthKit READ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "graph2data would like to read heart rate and blood oxygen data from HealthKit";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "graph2data would like to write heart rate and blood oxygen data gathered from images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct GroupBoxViewHR: View {
+    
     @Binding var hrDate: Date
+    
     @Binding var hrRateMin: Int
     @Binding var hrRateMax: Int
     @Binding var hrRateStart: Int
     @Binding var hrRateEnd: Int
+    let range = 0...300
     
     var body: some View {
         GroupBox {
@@ -26,7 +29,7 @@ struct GroupBoxViewHR: View {
             }
             
             Divider()
-            Stepper(value: $hrRateMin) {
+            Stepper(value: $hrRateMin, in: range, step: 1) {
                 HStack {
                     Image(systemName: "arrow.down.heart")
                         .symbolRenderingMode(.palette)
@@ -36,7 +39,7 @@ struct GroupBoxViewHR: View {
                 }
             }
             Divider()
-            Stepper(value: $hrRateMax) {
+            Stepper(value: $hrRateMax, in: range, step: 1) {
                 HStack {
                     Image(systemName: "arrow.up.heart")
                         .symbolRenderingMode(.palette)
@@ -46,7 +49,7 @@ struct GroupBoxViewHR: View {
                 }
             }
             Divider()
-            Stepper(value: $hrRateStart) {
+            Stepper(value: $hrRateStart, in: range, step: 1) {
                 HStack {
                     Image(systemName: "heart.circle")
                         .foregroundColor(.red)
@@ -55,7 +58,7 @@ struct GroupBoxViewHR: View {
                 }
             }
             Divider()
-            Stepper(value: $hrRateEnd) {
+            Stepper(value: $hrRateEnd, in: range, step: 1) {
                 HStack {
                     Image(systemName: "heart.circle.fill")
                         .foregroundColor(.red)
@@ -77,7 +80,7 @@ struct GroupBoxViewHR_Previews: PreviewProvider {
         GroupBoxViewHR(hrDate: $hrDate, hrRateMin: $hrRateMin, hrRateMax: $hrRateMax, hrRateStart: $hrRateStart, hrRateEnd: $hrRateEnd)
             .previewLayout(.sizeThatFits)
             .padding()
-//                    .preferredColorScheme(.dark)
+        //                    .preferredColorScheme(.dark)
         // .environment(\.locale, .init(identifier: "ru"))
     }
 }

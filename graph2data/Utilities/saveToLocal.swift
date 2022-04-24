@@ -25,18 +25,6 @@ func saveToFile(fileName: String, fileContent: String) {
     }
 }
 
-func readTagsFromFile(fileName: String) -> String {
-    let url = getDocumentsDirectory().appendingPathComponent(fileName)
-    var input: String = ""
-    do {
-        input = try String(contentsOf: url)
-        print("read")
-    } catch {
-        print(error.localizedDescription)
-    }
-    return input
-}
-
 func isFileHere(fileName: String) -> Bool {
     let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
     let url = NSURL(fileURLWithPath: path)

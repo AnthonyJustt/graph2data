@@ -9,16 +9,12 @@ import SwiftUI
 import HealthKit
 
 struct HealthView: View {
-    
-    //   var date: Date //= Date()
-    var type: String //= ""
-    //  var healthValues: [healthItem] //= [healthItem(x: 0, y: 0, date: "", value: "")]
-    
+    var type: String
     var mediaItems: PickedMediaItems
-    
     @State private var showingNoHealthAlert = false
-    
     @Environment(\.presentationMode) var presentationMode
+    
+    @AppStorage("boLatestDate") var boLatestDate: String = ""
     
     var healthStore: HealthStore? = HealthStore()
     //    init() {
@@ -26,9 +22,7 @@ struct HealthView: View {
     //    }
     
     var body: some View {
-        
         VStack {
-            
             VStack {
                 Text(type)
                     .bold()
@@ -80,55 +74,78 @@ struct HealthView: View {
             Divider()
                 .padding()
             
-            Button(action: {
-                //
-            }, label: {
-                HStack {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.secondary)
-                        .font(.title2)
-                    Spacer()
-                    Text("Add \(type) Data")
-                    Spacer()
-                }
-            })
-                .buttonStyle(customButton(fillColor: Color("AccentColor")))
-                .opacity(type == "Heart Rate" ? 1 : 0)
-                .padding()
-            
-            Button(action: {
-                if mediaItems.items.count > 0 {
-                    for item in mediaItems.items {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let dday = dateFormatter.string(from: item.date)
-                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                        for value in item.boValues {
-                            dateFormatter.dateFormat = "HH:mm:ss"
-                            let inDate = dateFormatter.date(from: value.date)!
-                            dateFormatter.dateFormat = "h:mm:ss a"
-                            let outTime = dateFormatter.string(from: inDate)
-                            
-                            didAddNewData(with: Double(value.value)! / Double(100), datetime: "\(dday)T\(outTime)")
-                        }
+            switch type {
+            case "Heart Rate":
+                Button(action: {
+                }, label: {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.secondary)
+                            .font(.title2)
+                        Spacer()
+                        Text("Add \(type) Data")
+                        Spacer()
                     }
-                }
-            }, label: {
-                HStack {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.secondary)
-                        .font(.title2)
-                    Spacer()
-                    Text("Add \(type) Data")
-                    Spacer()
-                }
-            })
-                .buttonStyle(customButton(fillColor: .cyan))
-                .opacity(type == "Blood Oxygen" ? 1 : 0)
-                .padding()
+                })
+                    .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                    .padding()
+            case "Blood Oxygen":
+                Button(action: {
+                    if mediaItems.items.count > 0 {
+                        
+                        let mostRecent = mediaItems.items.reduce(mediaItems.items[0], { $0.date.timeIntervalSince1970 > $1.date.timeIntervalSince1970 ? $0 : $1 } )
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "dd.MM.yyyy"
+                        let stringDate = dateFormatter.string(from: mostRecent.date)
+                        boLatestDate = stringDate
+                        print("most recent is \(stringDate)")
+                        
+                        for item in mediaItems.items {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            let dday = dateFormatter.string(from: item.date)
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                            for value in item.hiValues {
+                                dateFormatter.dateFormat = "HH:mm:ss"
+                                let inDate = dateFormatter.date(from: value.date)!
+                                dateFormatter.dateFormat = "h:mm:ss a"
+                                let outTime = dateFormatter.string(from: inDate)
+                                
+                                didAddNewData(with: Double(value.value) / Double(100), datetime: "\(dday)T\(outTime)")
+                            }
+                        }
+                        
+                        //saving data to json
+//                        for item in mediaItems.items {
+//                            let jsonEncoder = JSONEncoder()
+//                            jsonEncoder.outputFormatting = .prettyPrinted
+//                            do {
+//                                let jsonData = try jsonEncoder.encode(item.boValues)
+//                                let jsonString = String(data: jsonData, encoding: .utf8)
+//                                saveToFile(fileName: "\(type)\\name.json", fileContent: jsonString!)
+//                            }
+//                            catch {
+//                            }
+//                        }
+                    }
+                }, label: {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.secondary)
+                            .font(.title2)
+                        Spacer()
+                        Text("Add \(type) Data")
+                        Spacer()
+                    }
+                })
+                    .buttonStyle(customButton(fillColor: .cyan))
+                    .padding()
+            default:
+                Spacer()
+            }
             
             Spacer()
-            
         }
         .overlay(
             ZStack {

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DisclosureView: View {
-    var hubArray: [ healthItem ]
+    var hubArray: [ healthItem ] 
     var DisclosureGroupName: String = ""
+    var accentColor: Color
     
     var columns: [GridItem] = [
         GridItem(.fixed(60), spacing: 6),
@@ -17,6 +18,9 @@ struct DisclosureView: View {
         GridItem(.fixed(100), spacing: 6),
         GridItem(.fixed(75), spacing: 6)
     ]
+    
+    @State var hiMin: Int
+    @State var hiMax: Int
     
     var body: some View {
         
@@ -35,12 +39,24 @@ struct DisclosureView: View {
                             Text("\(Int(index.x))")
                             Text("\(Int(index.y))")
                             Text(index.date)
-                            Text(index.value)
+                            Text("\(index.value)")
                         }
                   //  }
                 }
                 .padding(.top)
+                Text("Min - \(hiMin)\nMax - \(hiMax)")
             }
+            .accentColor(accentColor)
+            
+//            Button(action: {
+//                let boMaxHI = hubArray.max { $0.value < $1.value }
+//                boMax = boMaxHI?.value ?? 0
+//
+//                let boMinHI = hubArray.min { $0.value < $1.value }
+//                boMin = boMinHI?.value ?? 0
+//            }, label: {
+//                Text("min-max")
+//            })
         }
     }
 }
@@ -52,14 +68,14 @@ struct DisclosureView_Previews: PreviewProvider {
                 x: 233,
                 y: 800,
                 date: "00:11:00",
-                value: "77"
+                value: 77
             ),
             healthItem(
                 x: 2166,
                 y: 800,
                 date: "08:14:00",
-                value: "123"
-            )], DisclosureGroupName: "January 14, 2022")
+                value: 123
+            )], DisclosureGroupName: "January 14, 2022", accentColor: .cyan, hiMin: 80, hiMax: 100)
             .previewLayout(.sizeThatFits)
             .padding()
         

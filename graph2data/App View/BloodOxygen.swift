@@ -34,6 +34,8 @@ struct BloodOxygen: View {
     @State private var scanBarsButton = false
     @State private var exportToHealthButton = false
     
+    @State private var errorText: String = ""
+    
     @EnvironmentObject var model: Model
     
     func refresh() {
@@ -46,6 +48,7 @@ struct BloodOxygen: View {
         getBarsButton = false
         scanBarsButton = false
         exportToHealthButton = false
+        errorText = ""
     }
     
     var body: some View {
@@ -77,7 +80,16 @@ struct BloodOxygen: View {
                                         
                                         let dateFormatter = DateFormatter()
                                         dateFormatter.dateFormat = "dd M yyyy"
-                                        boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)")!
+                                        
+                                        if dateFormatter.date(from: "\(sdate[0]) \(yearString)") == nil {
+                                            boDate = Date()
+                                            print("Image #\(index+1): Date wasn't recognized")
+                                            errorText += "Image #\(index+1): Date wasn't recognized"
+                                        } else {
+                                            boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)")!
+                                        }
+                                        
+//                                        boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)") ?? Date()
                                         
                                         print(boDate)
                                         
@@ -101,7 +113,7 @@ struct BloodOxygen: View {
                             queue.async(execute: item)
                             
                             getStartButton = true
-                        })
+                        }, errorText: errorText)
                         
                         if mediaItems.items.count > 0 {
                             TabView {
@@ -198,14 +210,15 @@ struct BloodOxygen: View {
                             })
                         }
                         
-                        Button("showing modal", action: {
-                            withAnimation(Animation.easeInOut(duration: 0.25)){
-                                GlobalVars.boImagesCount = mediaItems.items.count
-                                print(GlobalVars.boImagesCount)
-                                showingModal = true
-                            }
-                        })
-                        .padding()
+//                        Button("showing modal", action: {
+//                            withAnimation(Animation.easeInOut(duration: 0.25)){
+//                                GlobalVars.boImagesCount = mediaItems.items.count
+//                                print(GlobalVars.boImagesCount)
+//                                showingModal = true
+//                            }
+//                        })
+//                        .padding()
+                        
                     } // VSTACK
                     .padding()
                 } // SCROLLVIEW
@@ -217,6 +230,7 @@ struct BloodOxygen: View {
                     mediaItems.append(item: PhotoPickerModel(photo: UIImage(named: "boIMG")!))
                 }, label: {
                     Text("Demo")
+                        .foregroundColor(.cyan)
                 })
                     .opacity(showingModal ? 0 : 1)
                                     , trailing:

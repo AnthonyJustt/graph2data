@@ -15,8 +15,11 @@ struct HeaderView: View {
     @Binding var photoPickerIsPresented: Bool
     var mediaItems_Items_Count: Int
     var analyseAction: () -> Void
+    var errorText: String
     
     @AppStorage("boLatestDate") var boLatestDate: String = ""
+    
+    @State private var showingAlert = false
     
     var body: some View {
         VStack {
@@ -37,16 +40,34 @@ struct HeaderView: View {
                 Button("Select Images...", action: {
                     photoPickerIsPresented = true
                 })
-                    .buttonStyle(customButton(fillColor: accentColor))
+                .buttonStyle(customButton(fillColor: accentColor))
                 
                 if mediaItems_Items_Count > 0 {
                     Button("Analyse Images", action: {
                         analyseAction()
                     })
-                        .accessibilityIdentifier("get_date")
-                        .buttonStyle(customButton(fillColor: accentColor))
+                    .accessibilityIdentifier("get_date")
+                    .buttonStyle(customButton(fillColor: accentColor))
                 }
             }
+            
+            HStack {
+                if errorText.count > 0 {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.orange)
+                        .font(.title2)
+                    Text("Attention required")
+                }
+            }
+            .onTapGesture(perform: {
+                showingAlert = true
+            })
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text(""),
+                      message: Text(errorText.replacingOccurrences(of: "recognizedImage", with: "recognized\nImage")),
+                      dismissButton: .destructive(Text("OK")))
+            }
+            
         }
     }
 }
@@ -56,7 +77,7 @@ struct HeaderView_Previews: PreviewProvider {
     @State static var photoPickerIsPresented = false
     static var previews: some View {
         //lungs
-        HeaderView(imageName: "bolt.heart", accentColor: .pink, additionalColor: .orange, isZooming: $isZooming, photoPickerIsPresented: $photoPickerIsPresented, mediaItems_Items_Count: 1, analyseAction: {})
+        HeaderView(imageName: "bolt.heart", accentColor: .pink, additionalColor: .orange, isZooming: $isZooming, photoPickerIsPresented: $photoPickerIsPresented, mediaItems_Items_Count: 1, analyseAction: {}, errorText: "77")
             .previewLayout(.sizeThatFits)
             .padding()
         //                    .preferredColorScheme(.dark)

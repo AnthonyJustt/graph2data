@@ -136,7 +136,7 @@ struct HeartRate: View {
                             queue.async(execute: item)
                             
                             getStartButton = true
-                        })
+                        }, errorText: "")
                         
                         //                    ProgressView("Progress", value: Double(xProgress), total: Double(xEnd))
                         //                        .accentColor(.pink)
@@ -206,7 +206,7 @@ struct HeartRate: View {
                                     
                                     firstHalf = DispatchWorkItem {
                                         if item.isCancelled != true {
-                                            for (index, item) in mediaItems.items.enumerated() {
+                                            for (_, item) in mediaItems.items.enumerated() {
                                                 hr_getPixelsColors0(inputImage: item.photo!, xStart: item.hrXStart, yStart: item.hrYStart, xEnd: item.hrYEnd)
                                             }
                                         }

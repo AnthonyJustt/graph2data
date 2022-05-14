@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DisclosureView: View {
-    var hubArray: [ healthItem ] 
+    var hubArray: [ healthItem ]
     var DisclosureGroupName: String = ""
     var accentColor: Color
     
@@ -19,8 +19,8 @@ struct DisclosureView: View {
         GridItem(.fixed(75), spacing: 6)
     ]
     
-    @State var hiMin: Int
-    @State var hiMax: Int
+    var hiMin: Int
+    var hiMax: Int
     
     var body: some View {
         
@@ -33,30 +33,34 @@ struct DisclosureView: View {
                     spacing: 16,
                     pinnedViews: [.sectionHeaders, .sectionFooters]
                 ) {
-                  //  Section(header: Text("Section 1").font(.title))
-                 //   {
-                        ForEach(hubArray) { index in
-                            Text("\(Int(index.x))")
-                            Text("\(Int(index.y))")
-                            Text(index.date)
-                            Text("\(index.value)")
-                        }
-                  //  }
+                    //  Section(header: Text("Section 1").font(.title))
+                    //   {
+                    ForEach(hubArray) { index in
+                        Text("\(Int(index.x))")
+                        Text("\(Int(index.y))")
+                        Text(index.date)
+                        Text("\(index.value)")
+                    }
+                    //  }
                 }
                 .padding(.top)
-                Text("Min - \(hiMin)\nMax - \(hiMax)")
+                //      Text("Lowest — \(hiMin)%\nHighest — \(hiMax)%")
+                Divider()
+                    .padding(.horizontal)
+                Text("Lowest — **\(hiMin)**%")
+                Text("Highest — **\(hiMax)**%")
             }
             .accentColor(accentColor)
             
-//            Button(action: {
-//                let boMaxHI = hubArray.max { $0.value < $1.value }
-//                boMax = boMaxHI?.value ?? 0
-//
-//                let boMinHI = hubArray.min { $0.value < $1.value }
-//                boMin = boMinHI?.value ?? 0
-//            }, label: {
-//                Text("min-max")
-//            })
+            //            Button(action: {
+            //                let boMaxHI = hubArray.max { $0.value < $1.value }
+            //                boMax = boMaxHI?.value ?? 0
+            //
+            //                let boMinHI = hubArray.min { $0.value < $1.value }
+            //                boMin = boMinHI?.value ?? 0
+            //            }, label: {
+            //                Text("min-max")
+            //            })
         }
     }
 }
@@ -76,10 +80,10 @@ struct DisclosureView_Previews: PreviewProvider {
                 date: "08:14:00",
                 value: 123
             )], DisclosureGroupName: "January 14, 2022", accentColor: .cyan, hiMin: 80, hiMax: 100)
-            .previewLayout(.sizeThatFits)
-            .padding()
+        .previewLayout(.sizeThatFits)
+        .padding()
         
-//         .preferredColorScheme(.dark)
+        //         .preferredColorScheme(.dark)
         // .environment(\.locale, .init(identifier: "ru"))
     }
 }

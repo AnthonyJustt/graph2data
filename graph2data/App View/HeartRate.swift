@@ -18,14 +18,14 @@ struct HeartRate: View {
     
     @State  var showingModal: Bool = false
     
-//    @State private var boDate = Date()
+    //    @State private var boDate = Date()
     
-//    @State private var rateMin = 48
-//    @State private var rateMax = 137
+    //    @State private var rateMin = 48
+    //    @State private var rateMax = 137
     // Минимальное и максимальное значения нужны, чтобы сузить прямоугольник поиска по изображению
     
-//    @State private var rateStart = 57
-//    @State private var rateEnd = 132
+    //    @State private var rateStart = 57
+    //    @State private var rateEnd = 132
     // Начальное и конечное значения нужны, чтобы сопоставить полученные пиксели и искомые значения время-значение
     // Значение - это Y
     // Время - это X
@@ -55,7 +55,7 @@ struct HeartRate: View {
     @State private var yEnd: Int = 6710
     // Начало и окончание графика, определяются автоматически позднее
     
-//    @State private var xProgress: Int = 0
+    //    @State private var xProgress: Int = 0
     // для визуального отображения в ProgressView
     
     @State private var xCount: Int = 0
@@ -74,7 +74,7 @@ struct HeartRate: View {
     @State private var secondHalf: DispatchWorkItem = DispatchWorkItem { }
     // Ускоряем обработку, анализируя первую и вторую половины графика одновременно
     
-//    @State var shouldHide = true
+    //    @State var shouldHide = true
     // ProgressView скрыт до начала анализа
     
     @Environment(\.colorScheme) var colorScheme
@@ -126,7 +126,7 @@ struct HeartRate: View {
                                         hrDate = dateFormatter.date(from: "\(sdate[0])")!
                                         print(hrDate)
                                         
-                                        mediaItems.items[index].changeFirstValues(newDate: hrDate, newboLOwerBound: -1, newboHighestBound: -1, newboMaxLevel: -1)
+                                        mediaItems.items[index].changeCommonValues(newDate: hrDate)
                                     }
                                 }
                                 withAnimation(Animation.easeIn){
@@ -196,13 +196,13 @@ struct HeartRate: View {
                                         showingModal = false
                                     }
                                 })
-                                    .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                                .buttonStyle(customButton(fillColor: Color("AccentColor")))
                             }
                             
                             if scanImagesButton {
                                 Button ("Scan Images", action: {
                                     
-//                                    shouldHide = false
+                                    //                                    shouldHide = false
                                     
                                     firstHalf = DispatchWorkItem {
                                         if item.isCancelled != true {
@@ -212,22 +212,22 @@ struct HeartRate: View {
                                         }
                                         
                                         
-//                                        print("Task 1 started")
+                                        //                                        print("Task 1 started")
                                         //hr_getPixelsColors1(xStart: xStart)
                                         
-//                                        print("Task 1 finished")
+                                        //                                        print("Task 1 finished")
                                     }
-//                                    secondHalf = DispatchWorkItem {
-//                                        print("Task 2 started")
-//                                        //hr_getPixelsColors2(xEnd: xEnd)
-//                                        print("Task 2 finished")
-//                                    }
-                                                                        concurrentQueueAnalysis.async(execute: firstHalf)
+                                    //                                    secondHalf = DispatchWorkItem {
+                                    //                                        print("Task 2 started")
+                                    //                                        //hr_getPixelsColors2(xEnd: xEnd)
+                                    //                                        print("Task 2 finished")
+                                    //                                    }
+                                    concurrentQueueAnalysis.async(execute: firstHalf)
                                     //    concurrentQueueAnalysis.async(execute: secondHalf)
                                     
                                     exportToHealthButton = true
                                 })
-                                    .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                                .buttonStyle(customButton(fillColor: Color("AccentColor")))
                             }
                         }
                         
@@ -253,7 +253,7 @@ struct HeartRate: View {
                                 showingModal = true
                             }
                         })
-                            .padding()
+                        .padding()
                     }
                     .padding()
                 }
@@ -266,7 +266,7 @@ struct HeartRate: View {
                 }, label: {
                     Text("Demo")
                 })
-                                        .opacity(showingModal ? 0 : 1)
+                    .opacity(showingModal ? 0 : 1)
                                     , trailing:
                                         Button(action: {
                     refresh()
@@ -275,7 +275,7 @@ struct HeartRate: View {
                         .font(Font.title2)
                         .foregroundColor(Color("AccentColor"))
                 }
-                                        .opacity(showingModal ? 0 : 1)
+                    .opacity(showingModal ? 0 : 1)
                 )
                 .sheet(isPresented: $photoPickerIsPresented, content: {
                     PhotoPicker(mediaItems: mediaItems)
@@ -299,7 +299,7 @@ struct HeartRate: View {
                     ZStack {
                         Color("ColorTransparentBlack")
                             .edgesIgnoringSafeArea(.all)
-                     //   ModalView(showingModal: $showingModal)
+                        //   ModalView(showingModal: $showingModal)
                     }
                 }
             }

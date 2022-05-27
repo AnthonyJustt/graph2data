@@ -64,7 +64,9 @@ struct HeaderView: View {
             })
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text(""),
-                      message: Text(errorText.replacingOccurrences(of: "recognizedImage", with: "recognized\nImage")),
+                      message: Text(errorText
+                        .replacingOccurrences(of: "recognizedImage", with: "recognized\nImage")
+                        .replacingOccurrences(of: "dateImage", with: "date\nImage")),
                       dismissButton: .destructive(Text("OK")))
             }
             

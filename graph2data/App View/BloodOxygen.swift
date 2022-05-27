@@ -38,6 +38,10 @@ struct BloodOxygen: View {
     
     @EnvironmentObject var model: Model
     
+    @State private var boLOwerBound: Int = 0
+    @State private var boHighestBound: Int = 0
+    @State private var boMaxLevel: Int = 0
+    
     func refresh() {
         mediaItems.items = []
         bo_koef = 0
@@ -49,6 +53,9 @@ struct BloodOxygen: View {
         scanBarsButton = false
         exportToHealthButton = false
         errorText = ""
+        boLOwerBound = 0
+        boHighestBound = 0
+        boMaxLevel = 0
     }
     
     var body: some View {
@@ -69,6 +76,7 @@ struct BloodOxygen: View {
                                 dateFormatter.dateFormat = "yyyy"
                                 let yearString = dateFormatter.string(from: date)
                                 print(yearString)
+                                errorText = ""
                                 if item.isCancelled != true {
                                     for (index, item) in mediaItems.items.enumerated() {
                                         
@@ -81,13 +89,19 @@ struct BloodOxygen: View {
                                         let dateFormatter = DateFormatter()
                                         dateFormatter.dateFormat = "dd M yyyy"
                                         
-                                        if dateFormatter.date(from: "\(sdate[0]) \(yearString)") == nil {
-                                            boDate = Date()
-                                            print("Image #\(index+1): Date wasn't recognized")
-                                            errorText += "Image #\(index+1): Date wasn't recognized"
+                                        if sdate.count > 0 {
+                                            if dateFormatter.date(from: "\(sdate[0]) \(yearString)") == nil {
+                                                boDate = Date()
+                                                errorText += "Image #\(index+1): Date wasn't recognized"
+                                            } else {
+                                                boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)")!
+                                            }
                                         } else {
-                                            boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)")!
+                                            boDate = Date(timeIntervalSince1970: 0)
+                                            errorText += "Image #\(index+1): There is no date"
                                         }
+                                        
+                                        
                                         
 //                                        boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)") ?? Date()
                                         
@@ -99,11 +113,17 @@ struct BloodOxygen: View {
                                         
                                         print(bounds)
                                         
-                                        let boHighestBound = Int(bounds[0].replacingOccurrences(of: "%", with: "")) ?? 0
-                                        let boMaxLevel = boHighestBound
-                                        let boLOwerBound = Int(bounds[0].replacingOccurrences(of: "%", with: ""))! - (Int(bounds[0].replacingOccurrences(of: "%", with: ""))! - Int(bounds[1].replacingOccurrences(of: "%", with: ""))!)*3
+                                        if bounds.count > 1 {
+                                            boHighestBound = Int(bounds[0].replacingOccurrences(of: "%", with: "")) ?? 0
+                                            boMaxLevel = boHighestBound
+                                            boLOwerBound = (Int(bounds[0].replacingOccurrences(of: "%", with: "")) ?? 0) - ((Int(bounds[0].replacingOccurrences(of: "%", with: "")) ?? 0) - (Int(bounds[1].replacingOccurrences(of: "%", with: "")) ?? 0))*3
+                                        }else {
+                                            errorText += "Image #\(index+1): There are no bounds"
+                                        }
                                         
-                                        mediaItems.items[index].changeFirstValues(newDate: boDate, newboLOwerBound: boLOwerBound, newboHighestBound: boHighestBound, newboMaxLevel: boMaxLevel)
+                                        mediaItems.items[index].changeCommonValues(newDate: boDate)
+                                        
+                                        mediaItems.items[index].changeFirstboValues(newboLOwerBound: boLOwerBound, newboHighestBound: boHighestBound, newboMaxLevel: boMaxLevel)
                                     }
                                 }
                                 withAnimation(Animation.easeIn){

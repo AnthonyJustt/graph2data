@@ -20,7 +20,11 @@ class HealthStore {
     var allHealthDataTypes: [HKSampleType] {
         let typeIdentifiers: [String] = [
             HKQuantityTypeIdentifier.heartRate.rawValue,
-            HKQuantityTypeIdentifier.oxygenSaturation.rawValue
+            HKQuantityTypeIdentifier.oxygenSaturation.rawValue,
+            HKQuantityTypeIdentifier.bodyMass.rawValue,
+            HKQuantityTypeIdentifier.bodyFatPercentage.rawValue,
+            HKQuantityTypeIdentifier.bodyMassIndex.rawValue,
+            HKQuantityTypeIdentifier.leanBodyMass.rawValue
         ]
         
         return typeIdentifiers.compactMap { getSampleType(for: $0) }
@@ -37,10 +41,15 @@ class HealthStore {
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         let hrType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         let osType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.oxygenSaturation)!
+        let bmType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass)!
+        let bfpType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyFatPercentage)!
+        let bmiType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMassIndex)!
+        let lbmType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.leanBodyMass)!
+        
         guard let healthStore = self.healthStore else {
             return completion(false)
         }
-        healthStore.requestAuthorization(toShare: [hrType, osType], read: [hrType, osType]) { (success, error) in
+        healthStore.requestAuthorization(toShare: [hrType, osType, bmType, bfpType, bmiType, lbmType], read: [hrType, osType, bmType, bfpType, bmiType, lbmType]) { (success, error) in
             print("Request Authorization -- Success: ", completion(success), " Error: ", error ?? "nil")
             // Handle authorization errors here.
         }
@@ -49,6 +58,10 @@ class HealthStore {
     func getRequestStatusForAuthorization(completion: @escaping (Bool) -> Void) {
         let hrType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
         let osType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.oxygenSaturation)!
+        let bmType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass)!
+        let bfpType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyFatPercentage)!
+        let bmiType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMassIndex)!
+        let lbmType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.leanBodyMass)!
         
         guard let healthStore = self.healthStore else {
             return completion(false)
@@ -56,7 +69,7 @@ class HealthStore {
         
         let shareTypes = Set(self.shareDataTypes)
         
-        healthStore.getRequestStatusForAuthorization(toShare: [hrType, osType], read: [hrType, osType]) { (authorizationRequestStatus, error) in
+        healthStore.getRequestStatusForAuthorization(toShare: [hrType, osType, bmType, bfpType, bmiType, lbmType], read: [hrType, osType, bmType, bfpType, bmiType, lbmType]) { (authorizationRequestStatus, error) in
             var status: String = ""
             if let error = error {
                 status = "HealthKit Authorization Error: \(error.localizedDescription)"

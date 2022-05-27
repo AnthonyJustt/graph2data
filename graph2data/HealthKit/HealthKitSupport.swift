@@ -44,6 +44,15 @@ private func preferredUnit(for identifier: String, sampleType: HKSampleType? = n
             unit = .count()
         case .oxygenSaturation:
             unit = .percent()
+        case .bodyMass:
+            unit = .gram()
+        case .bodyFatPercentage:
+            unit = .percent()
+        case .bodyMassIndex:
+            unit = .count()
+        case .leanBodyMass:
+            unit = .gram()
+            
         default:
             break
         }

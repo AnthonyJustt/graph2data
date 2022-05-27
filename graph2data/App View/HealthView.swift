@@ -68,11 +68,50 @@ struct HealthView: View {
                     Spacer()
                 }
             })
-                .buttonStyle(customButton(fillColor: .gray))
-                .padding()
+            .buttonStyle(customButton(fillColor: .gray))
+            .padding()
             
             Divider()
                 .padding()
+            
+            Button(action: {
+                if mediaItems.items.count > 0 {
+                    for item in mediaItems.items {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let dday = dateFormatter.string(from: item.date)
+                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                        
+                        dateFormatter.dateFormat = "HH:mm:ss"
+                        let fTime = dateFormatter.string(from: item.wmTime)
+                        
+                        dateFormatter.dateFormat = "HH:mm:ss"
+                        let inDate = dateFormatter.date(from: fTime)!
+                        
+                        dateFormatter.dateFormat = "h:mm:ss a"
+                        let outTime = dateFormatter.string(from: inDate)
+                        
+                        didAddNewData(with: .bodyMass, value: Double(item.wmWeight)*1000, datetime: "\(dday)T\(outTime)")
+                        
+                        didAddNewData(with: .bodyFatPercentage, value: Double(item.wmBodyFatRate) / 100, datetime: "\(dday)T\(outTime)")
+                        
+                        didAddNewData(with: .bodyMassIndex, value: Double(item.wmBMI), datetime: "\(dday)T\(outTime)")
+                        
+                        didAddNewData(with: .leanBodyMass, value: Double(item.wmFatFreeMass)*1000, datetime: "\(dday)T\(outTime)")
+                    }
+                }
+            }, label: {
+                HStack {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.secondary)
+                        .font(.title2)
+                    Spacer()
+                    Text("Add weight managment Data")
+                    Spacer()
+                }
+            })
+            .buttonStyle(customButton(fillColor: Color("AccentColor")))
+            .padding()
             
             switch type {
             case "Heart Rate":
@@ -87,8 +126,8 @@ struct HealthView: View {
                         Spacer()
                     }
                 })
-                    .buttonStyle(customButton(fillColor: Color("AccentColor")))
-                    .padding()
+                .buttonStyle(customButton(fillColor: Color("AccentColor")))
+                .padding()
             case "Blood Oxygen":
                 Button(action: {
                     if mediaItems.items.count > 0 {
@@ -112,22 +151,22 @@ struct HealthView: View {
                                 dateFormatter.dateFormat = "h:mm:ss a"
                                 let outTime = dateFormatter.string(from: inDate)
                                 
-                                didAddNewData(with: Double(value.value) / Double(100), datetime: "\(dday)T\(outTime)")
+                                didAddNewData(with: .oxygenSaturation, value: Double(value.value) / Double(100), datetime: "\(dday)T\(outTime)")
                             }
                         }
                         
                         //saving data to json
-//                        for item in mediaItems.items {
-//                            let jsonEncoder = JSONEncoder()
-//                            jsonEncoder.outputFormatting = .prettyPrinted
-//                            do {
-//                                let jsonData = try jsonEncoder.encode(item.boValues)
-//                                let jsonString = String(data: jsonData, encoding: .utf8)
-//                                saveToFile(fileName: "\(type)\\name.json", fileContent: jsonString!)
-//                            }
-//                            catch {
-//                            }
-//                        }
+                        //                        for item in mediaItems.items {
+                        //                            let jsonEncoder = JSONEncoder()
+                        //                            jsonEncoder.outputFormatting = .prettyPrinted
+                        //                            do {
+                        //                                let jsonData = try jsonEncoder.encode(item.boValues)
+                        //                                let jsonString = String(data: jsonData, encoding: .utf8)
+                        //                                saveToFile(fileName: "\(type)\\name.json", fileContent: jsonString!)
+                        //                            }
+                        //                            catch {
+                        //                            }
+                        //                        }
                     }
                 }, label: {
                     HStack {
@@ -139,8 +178,8 @@ struct HealthView: View {
                         Spacer()
                     }
                 })
-                    .buttonStyle(customButton(fillColor: .cyan))
-                    .padding()
+                .buttonStyle(customButton(fillColor: .cyan))
+                .padding()
             default:
                 Spacer()
             }
@@ -166,12 +205,14 @@ struct HealthView: View {
         }
     }
     
-    func didAddNewData(with value: Double, datetime: String) {
-        guard let sample = processHealthSample(with: value, datetime: datetime) else { return }
+    func didAddNewData(with quantityTypeIdentifier: HKQuantityTypeIdentifier, value: Double, datetime: String) {
+        //        guard let sample = processHealthSample(with: value, datetime: datetime) else { return }
+        
+        guard let sample = processHealthSample(with: quantityTypeIdentifier, value: value, datetime: datetime)  else { return }
         
         healthStore?.saveHealthData([sample]) { (success, error) in
             if let error = error {
-                print("DataTypeTableViewController didAddNewData error:", error.localizedDescription)
+                print("DidAddNewData error:", error.localizedDescription)
             }
             if success {
                 print("Successfully saved a new sample!", sample)
@@ -184,8 +225,10 @@ struct HealthView: View {
         }
     }
     
-    private func processHealthSample(with value: Double, datetime: String) -> HKObject? {
-        let dataTypeIdentifier = HKQuantityTypeIdentifier.oxygenSaturation.rawValue
+    private func processHealthSample(with quantityTypeIdentifier: HKQuantityTypeIdentifier, value: Double, datetime: String) -> HKObject? {
+        let dataTypeIdentifier = quantityTypeIdentifier.rawValue
+        
+        // HKQuantityTypeIdentifier.oxygenSaturation.rawValue
         
         guard
             let sampleType = getSampleType(for: dataTypeIdentifier),

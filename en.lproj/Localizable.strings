@@ -10,3 +10,5 @@
 "MainView.ExportToAppleHealth" = "Export to Apple Health";
 "BloodOxygen.Title" = "Blood Oxygen";
 "BloodOxygen.Tab" = "SpO₂";
+"WeightManagment.Tab" = "Weight";
+"WeightManagment.Title" = "Weight Managment";

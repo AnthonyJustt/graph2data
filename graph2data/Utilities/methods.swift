@@ -67,6 +67,19 @@ struct PhotoPickerModel: Identifiable {
     var hrXEnd: Int
     var hrYEnd: Int
     
+    // weight managment values
+    var wmTime: Date
+    var wmWeight: Float
+    var wmBMI: Float
+    var wmBodyFatRate: Float
+    var wmFatFreeMass: Float
+    var wmBasalMetabolicRate: Float
+    var wmBodyWater: Float
+    var wmVisceralFat: Float
+    var wmBoneMineralContent: Float
+    var wmProtein: Float
+    var wmSkeletalMuscleMass: Float
+    
     // common values
     var hiValues: [healthItem]
     var hiMin: Int {
@@ -99,6 +112,18 @@ struct PhotoPickerModel: Identifiable {
         self.hrXEnd = 2247
         self.hrYEnd = 671
         
+        self.wmTime = Date()
+        self.wmWeight = 0.0
+        self.wmBMI = 0.0
+        self.wmBodyFatRate = 0.0
+        self.wmFatFreeMass = 0.0
+        self.wmBasalMetabolicRate = 0.0
+        self.wmBodyWater = 0.0
+        self.wmVisceralFat = 0.0
+        self.wmBoneMineralContent = 0.0
+        self.wmProtein = 0.0
+        self.wmSkeletalMuscleMass = 0.0
+        
         self.hiValues = []
     }
     
@@ -119,12 +144,12 @@ struct PhotoPickerModel: Identifiable {
      *Another description field*
      - version: 1.0
      */
-
-    mutating func changeFirstValues(newDate: Date, newboLOwerBound: Int, newboHighestBound: Int, newboMaxLevel: Int) {
-        
-        // нужно разделить на две и переименовать: первая - общая - изменение даты, вторая - только для bo - изменение значений
-        
+    
+    mutating func changeCommonValues(newDate: Date) {
         date = newDate
+    }
+
+    mutating func changeFirstboValues(newboLOwerBound: Int, newboHighestBound: Int, newboMaxLevel: Int) {
         boLOwerBound = newboLOwerBound
         boHighestBound = newboHighestBound
         boMaxLevel = newboMaxLevel
@@ -159,6 +184,20 @@ struct PhotoPickerModel: Identifiable {
         hrXEnd = newhrXEnd
         hrYEnd = newhrYEnd
     }
+    
+    mutating func changeWMValues(newwmTime: Date, newwmWeight: Float, newwmBMI: Float, newwmBodyFatRate: Float, newwmFatFreeMass: Float, newwmBasalMetabolicRate: Float, newwmBodyWater: Float, newwmVisceralFat: Float, newwmBoneMineralContent: Float, newwmProtein: Float, newwmSkeletalMuscleMass: Float) {
+        wmTime = newwmTime
+        wmWeight = newwmWeight
+        wmBMI = newwmBMI
+        wmBodyFatRate = newwmBodyFatRate
+        wmFatFreeMass = newwmFatFreeMass
+        wmBasalMetabolicRate = newwmBasalMetabolicRate
+        wmBodyWater = newwmBodyWater
+        wmVisceralFat = newwmVisceralFat
+        wmBoneMineralContent = newwmBoneMineralContent
+        wmProtein = newwmProtein
+        wmSkeletalMuscleMass = newwmSkeletalMuscleMass
+    }
 }
 
 public class PickedMediaItems: ObservableObject {
@@ -183,13 +222,13 @@ public class PickedMediaItems: ObservableObject {
     }
 }
 
-struct bo_imageData: Identifiable {
-    var id = UUID()
-    var date = Date()
-    var boLOwerBound: Int
-    var boHighestBound: Int
-    var boMaxLevel: Int
-}
+//struct bo_imageData: Identifiable {
+//    var id = UUID()
+//    var date = Date()
+//    var boLOwerBound: Int
+//    var boHighestBound: Int
+//    var boMaxLevel: Int
+//}
 
 struct ImageView: View {
     var uiImage: UIImage

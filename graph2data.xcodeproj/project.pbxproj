@@ -25,9 +25,12 @@
 		497F55EE28157992009370E1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 497F55ED28157992009370E1 /* Launch Screen.storyboard */; };
 		49843E8427AF2B9C005A580F /* CombineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49843E8327AF2B9C005A580F /* CombineModel.swift */; };
 		498B877027848F3E000493B2 /* ExportButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B876F27848F3E000493B2 /* ExportButtonView.swift */; };
+		499232FC283F660400524C66 /* WeightManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499232FB283F660400524C66 /* WeightManagment.swift */; };
+		499232FE283F6CF100524C66 /* GroupBoxViewWM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499232FD283F6CF100524C66 /* GroupBoxViewWM.swift */; };
 		49A77F912783852F0086567A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A77F902783852F0086567A /* HeaderView.swift */; };
 		49A77F9327839C120086567A /* GroupBoxViewHR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A77F9227839C120086567A /* GroupBoxViewHR.swift */; };
 		49A9B0AC275D5C6C0067148C /* saveToLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9B0AB275D5C6B0067148C /* saveToLocal.swift */; };
+		49BA18C328410934006729EF /* SlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA18C228410934006729EF /* SlideMenu.swift */; };
 		49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2D2754BCA0001EDB2D /* MainView.swift */; };
 		49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */; };
 		49CD6B3327557629001EDB2D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494C4AA126FFD36D0023D1B3 /* HealthKit.framework */; };
@@ -69,9 +72,12 @@
 		497F55ED28157992009370E1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		49843E8327AF2B9C005A580F /* CombineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineModel.swift; sourceTree = "<group>"; };
 		498B876F27848F3E000493B2 /* ExportButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportButtonView.swift; sourceTree = "<group>"; };
+		499232FB283F660400524C66 /* WeightManagment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightManagment.swift; sourceTree = "<group>"; };
+		499232FD283F6CF100524C66 /* GroupBoxViewWM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxViewWM.swift; sourceTree = "<group>"; };
 		49A77F902783852F0086567A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		49A77F9227839C120086567A /* GroupBoxViewHR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxViewHR.swift; sourceTree = "<group>"; };
 		49A9B0AB275D5C6B0067148C /* saveToLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveToLocal.swift; sourceTree = "<group>"; };
+		49BA18C228410934006729EF /* SlideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenu.swift; sourceTree = "<group>"; };
 		49CD6B2D2754BCA0001EDB2D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodOxygen.swift; sourceTree = "<group>"; };
 		49D7EF2527760FCA0063A681 /* GroupBoxViewBO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBoxViewBO.swift; sourceTree = "<group>"; };
@@ -117,6 +123,8 @@
 				49CD6B2F2754BFF5001EDB2D /* BloodOxygen.swift */,
 				49555A91271475CE00A78541 /* HealthView.swift */,
 				49843E8327AF2B9C005A580F /* CombineModel.swift */,
+				499232FB283F660400524C66 /* WeightManagment.swift */,
+				49BA18C228410934006729EF /* SlideMenu.swift */,
 			);
 			path = "App View";
 			sourceTree = "<group>";
@@ -127,6 +135,7 @@
 				49A77F902783852F0086567A /* HeaderView.swift */,
 				49D7EF2527760FCA0063A681 /* GroupBoxViewBO.swift */,
 				49A77F9227839C120086567A /* GroupBoxViewHR.swift */,
+				499232FD283F6CF100524C66 /* GroupBoxViewWM.swift */,
 				49555A8D271475CE00A78541 /* DisclosureView.swift */,
 				498B876F27848F3E000493B2 /* ExportButtonView.swift */,
 				493841B3277F611100B3D066 /* ModalView.swift */,
@@ -353,9 +362,11 @@
 				492B9F01275EA7FE008484C1 /* PHPhotoPicker.swift in Sources */,
 				491F82002759FB80003B5195 /* HealthKitSupport.swift in Sources */,
 				49A77F912783852F0086567A /* HeaderView.swift in Sources */,
+				49BA18C328410934006729EF /* SlideMenu.swift in Sources */,
 				49CD6B2E2754BCA0001EDB2D /* MainView.swift in Sources */,
 				491F8204275A03DD003B5195 /* buttonStyle.swift in Sources */,
 				491F8206275A0C7E003B5195 /* methods.swift in Sources */,
+				499232FC283F660400524C66 /* WeightManagment.swift in Sources */,
 				49CD6B302754BFF5001EDB2D /* BloodOxygen.swift in Sources */,
 				49555A93271475CE00A78541 /* DisclosureView.swift in Sources */,
 				49555A94271475CE00A78541 /* HeartRate.swift in Sources */,
@@ -363,6 +374,7 @@
 				49555A95271475CE00A78541 /* graph2dataApp.swift in Sources */,
 				49F309EE275F4B0100763CA0 /* CodableBundleExtension.swift in Sources */,
 				49A77F9327839C120086567A /* GroupBoxViewHR.swift in Sources */,
+				499232FE283F6CF100524C66 /* GroupBoxViewWM.swift in Sources */,
 				49555A96271475CE00A78541 /* HealthView.swift in Sources */,
 				498B877027848F3E000493B2 /* ExportButtonView.swift in Sources */,
 				49843E8427AF2B9C005A580F /* CombineModel.swift in Sources */,

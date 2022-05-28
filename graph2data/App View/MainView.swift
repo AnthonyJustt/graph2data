@@ -8,38 +8,38 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var tabSelection = 2
-    
-    @State var width = UIScreen.main.bounds.width - 90
-    @State var x = -UIScreen.main.bounds.width + 90
+    @State private var tabSelection = 1
+    @State var x = -UIScreen.main.bounds.width
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
+        ZStack() {
             tabView
             
             SlideMenu()
                 .shadow(color: Color.black.opacity(x != 0 ? 0.1 : 0), radius: 5, x: 5, y: 0)
                 .offset(x: x)
-                .background(Color.black.opacity(x == 0 ? 0.5 : 0)
+                .background(Color.white.opacity(x == 0 ? 0.01 : 0)
+                    .offset(x: x == 0 ? UIScreen.main.bounds.width - 90 : UIScreen.main.bounds.width)
                     .ignoresSafeArea(.all, edges: .vertical)
                     .onTapGesture {
-                        withAnimation { x = -width }
+                        withAnimation { x = -UIScreen.main.bounds.width }
                     })
+            
+            Image(systemName: x == 0 ? "chevron.compact.left" : "chevron.compact.right")
+                .font(.largeTitle)
+                .padding(8)
+                .padding(.vertical, 16)
+                .background(
+                    RoundedCornersShape(corners: [.topRight, .bottomRight], radius: 15)
+                        .fill(.ultraThinMaterial)
+                )
+                .shadow(color: x == 0 ? .clear : .gray.opacity(0.3), radius: x == 0 ? 0 : 5)
+                .position(x: x == 0 ? UIScreen.main.bounds.width - 90 + 16 : 16, y: 100)
+                .onTapGesture {
+                    withAnimation {
+                        if x == 0 { x = -UIScreen.main.bounds.width } else { x = 0 }
+                    }
+                }
         }
-        .gesture(
-            DragGesture()
-                .onChanged({ value in
-                    withAnimation {
-                        if value.translation.width > 0 {
-                            if x < 0 { x = -width + value.translation.width  }
-                        } else { x = value.translation.width }
-                    }
-                })
-                .onEnded({ value in
-                    withAnimation {
-                        if -x < width / 2 { x = 0 } else { x = -width }
-                    }
-                })
-        )
     }
     
     var tabView: some View {
@@ -60,6 +60,18 @@ struct MainView: View {
                     Text(LocalizedStringKey("WeightManagment.Tab"))
                 }.tag(2)
         }
+    }
+}
+
+struct RoundedCornersShape: Shape {
+    let corners: UIRectCorner
+    let radius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect,
+                                byRoundingCorners: corners,
+                                cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
     }
 }
 

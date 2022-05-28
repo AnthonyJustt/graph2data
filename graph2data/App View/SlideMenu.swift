@@ -14,14 +14,11 @@ struct SlideMenu: View {
                 Spacer()
                 Text("Menu")
                 Spacer()
+                Spacer()
             }
             .padding(.horizontal, 20)
-            // since vertical edges are ignored
-            //   .padding(.top, edges!.top == 0 ? 15 : edges?.top)
-            //   .padding(.bottom, edges!.bottom == 0 ? 15 : edges?.bottom)
-            // default width
             .frame(width: UIScreen.main.bounds.width - 90)
-            .background(Color(UIColor.systemBackground))
+            .background(.ultraThinMaterial)
             .ignoresSafeArea(.all, edges: .vertical)
             
             Spacer(minLength: 0)

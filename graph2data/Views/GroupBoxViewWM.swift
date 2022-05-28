@@ -27,22 +27,21 @@ struct GroupBoxViewWM: View {
     let wmRange = Float(0.0)...Float(150.0)
     
     var body: some View {
-        
-        Button(action: {
-            
-                print(wmDate)
-                print(wmTime)
-        }, label: {Text("date and time")})
-        
         VStack {
             GroupBox {
-                DatePicker(selection: $wmTime) {
+                HStack(spacing: 0) {
                     HStack {
                         Image(systemName: "calendar")
                             .foregroundColor(.secondary)
                             .font(.title2)
                         Text("Date")
                     }
+                    Spacer()
+                    DatePicker(selection: $wmDate, displayedComponents: [.date], label: {})
+                        .labelsHidden()
+                    Spacer()
+                    DatePicker(selection: $wmTime, displayedComponents: [.hourAndMinute], label: {})
+                        .labelsHidden()
                 }
                 
                 Divider()

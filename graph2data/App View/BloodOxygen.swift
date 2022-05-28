@@ -17,7 +17,7 @@ struct BloodOxygen: View {
     
     @State private var boDate = Date()
     
-    @ObservedObject var mediaItems = PickedMediaItems()
+    @StateObject var mediaItems = PickedMediaItems()
     
     @State private var photoPickerIsPresented = false
     @State private var showingHealthView = false
@@ -103,7 +103,7 @@ struct BloodOxygen: View {
                                         
                                         
                                         
-//                                        boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)") ?? Date()
+                                        //                                        boDate = dateFormatter.date(from: "\(sdate[0]) \(yearString)") ?? Date()
                                         
                                         print(boDate)
                                         
@@ -230,14 +230,14 @@ struct BloodOxygen: View {
                             })
                         }
                         
-//                        Button("showing modal", action: {
-//                            withAnimation(Animation.easeInOut(duration: 0.25)){
-//                                GlobalVars.boImagesCount = mediaItems.items.count
-//                                print(GlobalVars.boImagesCount)
-//                                showingModal = true
-//                            }
-//                        })
-//                        .padding()
+                        //                        Button("showing modal", action: {
+                        //                            withAnimation(Animation.easeInOut(duration: 0.25)){
+                        //                                GlobalVars.boImagesCount = mediaItems.items.count
+                        //                                print(GlobalVars.boImagesCount)
+                        //                                showingModal = true
+                        //                            }
+                        //                        })
+                        //                        .padding()
                         
                     } // VSTACK
                     .padding()

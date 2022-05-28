@@ -74,45 +74,6 @@ struct HealthView: View {
             Divider()
                 .padding()
             
-            Button(action: {
-                if mediaItems.items.count > 0 {
-                    for item in mediaItems.items {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let dday = dateFormatter.string(from: item.date)
-                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                        
-                        dateFormatter.dateFormat = "HH:mm:ss"
-                        let fTime = dateFormatter.string(from: item.wmTime)
-                        
-                        dateFormatter.dateFormat = "HH:mm:ss"
-                        let inDate = dateFormatter.date(from: fTime)!
-                        
-                        dateFormatter.dateFormat = "h:mm:ss a"
-                        let outTime = dateFormatter.string(from: inDate)
-                        
-                        didAddNewData(with: .bodyMass, value: Double(item.wmWeight)*1000, datetime: "\(dday)T\(outTime)")
-                        
-                        didAddNewData(with: .bodyFatPercentage, value: Double(item.wmBodyFatRate) / 100, datetime: "\(dday)T\(outTime)")
-                        
-                        didAddNewData(with: .bodyMassIndex, value: Double(item.wmBMI), datetime: "\(dday)T\(outTime)")
-                        
-                        didAddNewData(with: .leanBodyMass, value: Double(item.wmFatFreeMass)*1000, datetime: "\(dday)T\(outTime)")
-                    }
-                }
-            }, label: {
-                HStack {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.secondary)
-                        .font(.title2)
-                    Spacer()
-                    Text("Add weight managment Data")
-                    Spacer()
-                }
-            })
-            .buttonStyle(customButton(fillColor: Color("AccentColor")))
-            .padding()
-            
             switch type {
             case "Heart Rate":
                 Button(action: {
@@ -179,6 +140,45 @@ struct HealthView: View {
                     }
                 })
                 .buttonStyle(customButton(fillColor: .cyan))
+                .padding()
+            case "Weight Managment":
+                Button(action: {
+                    if mediaItems.items.count > 0 {
+                        for item in mediaItems.items {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            let dday = dateFormatter.string(from: item.date)
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                            
+                            dateFormatter.dateFormat = "HH:mm:ss"
+                            let fTime = dateFormatter.string(from: item.wmTime)
+                            
+                            dateFormatter.dateFormat = "HH:mm:ss"
+                            let inDate = dateFormatter.date(from: fTime)!
+                            
+                            dateFormatter.dateFormat = "h:mm:ss a"
+                            let outTime = dateFormatter.string(from: inDate)
+                            
+                            didAddNewData(with: .bodyMass, value: Double(item.wmWeight)*1000, datetime: "\(dday)T\(outTime)")
+                            
+                            didAddNewData(with: .bodyFatPercentage, value: Double(item.wmBodyFatRate) / 100, datetime: "\(dday)T\(outTime)")
+                            
+                            didAddNewData(with: .bodyMassIndex, value: Double(item.wmBMI), datetime: "\(dday)T\(outTime)")
+                            
+                            didAddNewData(with: .leanBodyMass, value: Double(item.wmFatFreeMass)*1000, datetime: "\(dday)T\(outTime)")
+                        }
+                    }
+                }, label: {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.secondary)
+                            .font(.title2)
+                        Spacer()
+                        Text("Add weight managment Data")
+                        Spacer()
+                    }
+                })
+                .buttonStyle(customButton(fillColor: Color("AccentColor")))
                 .padding()
             default:
                 Spacer()

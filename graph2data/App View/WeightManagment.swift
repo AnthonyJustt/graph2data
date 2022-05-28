@@ -10,16 +10,17 @@ import SwiftUI
 struct WeightManagment: View {
     @SceneStorage("isZooming") var isZooming: Bool = false
     @State private var photoPickerIsPresented = false
-    @ObservedObject var mediaItems = PickedMediaItems()
+    @StateObject var mediaItems = PickedMediaItems()
     @State private var errorText: String = ""
     @Environment(\.colorScheme) var colorScheme
-    @State private var exportToHealthButton = true // false
+    @State private var exportToHealthButton = false
     @State private var showingHealthView = false
     @State var showingModal: Bool = false
     
     @State private var wmWM: Float = 0.0
     
     func refresh() {
+        exportToHealthButton = false
         mediaItems.items = []
     }
     
@@ -122,6 +123,8 @@ struct WeightManagment: View {
         }
         
         print("wmAnalyseAction finished")
+        
+        exportToHealthButton = true
     }
     
     var body: some View {
